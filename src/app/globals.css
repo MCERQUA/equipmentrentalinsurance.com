@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   EQUIPMENT RENTAL INSURANCE — "Heavy Iron" Design System
+   Light · corporate · bold · heavy-equipment motif
+   (token NAMES inherited; VALUES remapped: clay=graphite charcoal,
+   sage=oxide rust, gold=safety orange)
+   ============================================================ */
+
+@layer base {
+  :root {
+    --bg-cream: #F6F7F8;
+    --bg-sand: #E6E9EC;
+    --bg-white: #FFFFFF;
+    --clay: #2A2E34;
+    --clay-dark: #171A1E;
+    --sage: #B5431F;
+    --gold: #E8751E;
+    --espresso: #171A1E;
+    --cocoa: #373D44;
+    --mocha: #5C6470;
+    --adobe: #AEB4BC;
+    --radius: 1rem;
+  }
+
+  * { border-color: var(--adobe); }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bg-cream);
+    color: var(--cocoa);
+    font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), Georgia, serif;
+    color: var(--espresso);
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+
+  ::selection {
+    background: rgba(232, 117, 30, 0.22);
+    color: var(--espresso);
+  }
+}
+
+@layer components {
+  .container-tight { @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .container-wide { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
+           bg-clay text-white font-heading font-semibold text-base
+           shadow-warm hover:bg-clay-dark hover:shadow-warm-lg
+           hover:-translate-y-0.5 transition-all duration-200
+           focus:outline-none focus:ring-4 focus:ring-clay/25;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
+           bg-white text-espresso font-heading font-semibold text-base
+           border-2 border-adobe hover:border-clay hover:text-clay
+           hover:-translate-y-0.5 transition-all duration-200
+           focus:outline-none focus:ring-4 focus:ring-clay/15;
+  }
+  .btn-sage {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
+           bg-sage text-white font-heading font-semibold text-base
+           shadow-warm hover:bg-sage-dark hover:shadow-warm-lg
+           hover:-translate-y-0.5 transition-all duration-200
+           focus:outline-none focus:ring-4 focus:ring-sage/25;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full
+           text-cocoa font-medium text-sm hover:bg-sand hover:text-clay
+           transition-colors duration-200;
+  }
+
+  .card-warm {
+    @apply bg-white rounded-3xl border border-adobe shadow-card
+           hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300;
+  }
+  .card-arch {
+    @apply bg-white border border-adobe shadow-card rounded-3xl
+           relative overflow-hidden hover:shadow-card-hover
+           hover:-translate-y-1 transition-all duration-300;
+  }
+  .card-arch::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #2A2E34 0%, #373D44 24%, #B5431F 58%, #E8751E 100%);
+  }
+  .pill { @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-heading font-semibold uppercase tracking-wider; }
+  .pill-clay { @apply pill bg-clay/10 text-clay border border-clay/20; }
+  .pill-sage { @apply pill bg-sage/10 text-sage-dark border border-sage/25; }
+  .pill-gold { @apply pill bg-gold/20 text-gold-dark border border-gold/40; }
+
+  .eyebrow { @apply inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-[0.18em] text-clay; }
+  .h-section { @apply font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-espresso leading-[1.1]; }
+  .lead { @apply text-lg md:text-xl text-mocha leading-relaxed; }
+
+  /* === Decorative motifs — "heavy iron" (industrial band) === */
+  .bg-sonoran {
+    background-color: var(--bg-cream);
+    background-image:
+      radial-gradient(circle at 15% 15%, rgba(42, 46, 52, 0.08) 0%, transparent 35%),
+      radial-gradient(circle at 85% 75%, rgba(232, 117, 30, 0.08) 0%, transparent 40%);
+  }
+  .bg-sonoran-sand {
+    background-color: var(--bg-sand);
+    background-image:
+      radial-gradient(circle at 70% 20%, rgba(181, 67, 31, 0.06) 0%, transparent 45%),
+      radial-gradient(circle at 20% 80%, rgba(232, 117, 30, 0.08) 0%, transparent 40%);
+  }
+  .bg-warm-radial {
+    background:
+      radial-gradient(ellipse at top, rgba(42, 46, 52, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(232, 117, 30, 0.07) 0%, transparent 50%),
+      var(--bg-cream);
+  }
+  /* Industrial band — layered steel + safety-orange = heavy-equipment horizon */
+  .horizon-band {
+    background: linear-gradient(180deg,
+      #2A2E34 0% 18%, #373D44 18% 34%, #E8751E 34% 48%,
+      #373D44 48% 62%, #2A2E34 62% 78%, #B5431F 78% 100%);
+  }
+  .grain {
+    background-image:
+      repeating-linear-gradient(92deg, rgba(42,46,52,0.0) 0px, rgba(42,46,52,0.0) 10px, rgba(255,255,255,0.025) 10px, rgba(255,255,255,0.025) 11px),
+      repeating-linear-gradient(88deg, rgba(0,0,0,0.0) 0px, rgba(0,0,0,0.0) 23px, rgba(0,0,0,0.03) 23px, rgba(0,0,0,0.03) 24px);
+  }
+  .dotted-warm {
+    background-image: radial-gradient(circle, rgba(232, 117, 30, 0.16) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .arch-divider { position: relative; height: 3rem; width: 100%; }
+  .arch-divider::after {
+    content: ""; position: absolute; inset: 0; margin: auto;
+    width: 10rem; height: 1.4rem;
+    background: linear-gradient(90deg, #2A2E34 0% 18%, #373D44 18% 40%, #E8751E 40% 62%, #B5431F 62% 82%, #2A2E34 82% 100%);
+    border-radius: 0.5rem; opacity: 0.92;
+  }
+
+  .prose-warm { @apply max-w-none; }
+  .prose-warm h2 { @apply font-heading font-bold text-2xl md:text-3xl text-espresso mt-12 mb-4; }
+  .prose-warm h3 { @apply font-heading font-bold text-xl md:text-2xl text-espresso mt-8 mb-3; }
+  .prose-warm p { @apply text-cocoa leading-relaxed mb-5 text-[1.05rem]; }
+  .prose-warm ul { @apply my-5 space-y-2 pl-0 list-none; }
+  .prose-warm li { @apply text-cocoa leading-relaxed pl-7 relative; }
+  .prose-warm li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 1.1rem; height: 0.5rem;
+    background: linear-gradient(90deg, #2A2E34 0% 35%, #E8751E 35% 70%, #B5431F 70% 100%);
+    border-radius: 0.15rem 0.5rem 0.15rem 0.5rem; opacity: 0.9;
+  }
+  .prose-warm strong { @apply text-espresso font-semibold; }
+  .prose-warm a { @apply text-sage-dark font-semibold underline decoration-gold/60 underline-offset-2 hover:decoration-sage; }
+  .prose-warm blockquote { @apply border-l-4 border-sage pl-5 py-2 my-6 text-espresso italic font-heading; }
+}
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 32s linear infinite; }
+@keyframes shimmer-line { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-sand); }
+::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 6px; border: 2px solid var(--bg-sand); }
+::-webkit-scrollbar-thumb:hover { background: var(--clay-dark); }
+:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; border-radius: 4px; }

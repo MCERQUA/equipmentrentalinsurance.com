@@ -1,0 +1,306 @@
+{
+  "home": [
+    {
+      "q": "What insurance does an equipment rental company need?",
+      "a": "A complete equipment rental company insurance program includes four core coverages: inland marine / equipment floater insurance (protecting your physical equipment wherever it goes), commercial general liability (covering third-party bodily injury and property damage claims), commercial auto (for delivery trucks and trailers), and workers' compensation for employees. Beyond the core stack, most rental yards benefit from equipment breakdown insurance, a commercial umbrella policy, and rented-to-others coverage. The specific combination depends on fleet size, customer types, and whether you deliver equipment or require customer pickup."
+    },
+    {
+      "q": "What is inland marine insurance for equipment rental companies?",
+      "a": "Inland marine insurance is a specialty property coverage that protects assets that move or operate away from a fixed location. For equipment rental companies, it is typically written as an equipment floater—a policy that follows your equipment to customer job sites, in transit, and anywhere else it operates, covering theft, physical damage, vandalism, and mysterious disappearance. Standard commercial property insurance covers only property at a scheduled address and does not protect your equipment once it leaves the yard, making inland marine the essential physical asset protection for any rental operation."
+    },
+    {
+      "q": "What is the difference between an equipment floater and general liability?",
+      "a": "An equipment floater covers physical damage to or theft of your own equipment—it is a property coverage. General liability (GL) covers claims made by third parties who suffer bodily injury or property damage as a result of your business operations or equipment. If a customer damages your excavator, the equipment floater pays. If the customer is injured while operating your excavator and sues you as the equipment owner, your GL policy responds. These coverages address entirely different exposures and you need both—one does not substitute for the other."
+    },
+    {
+      "q": "Does my equipment rental business need workers' compensation?",
+      "a": "Workers' compensation is legally required for businesses with employees in nearly every U.S. state, and equipment rental companies are no exception. Your employee population typically includes yard workers, delivery drivers, mechanics, and counter staff—all with different risk classifications and premium rates. Delivery drivers and mechanics working around heavy equipment carry higher risk ratings than office staff. Seasonal workers hired for peak construction season are also typically covered under state law, making it important to account for payroll fluctuations when setting up your policy."
+    },
+    {
+      "q": "What is 'rented-to-others' coverage and do I need it?",
+      "a": "Rented-to-others coverage is a specialized inland marine endorsement or stand-alone policy designed specifically for companies that own equipment and rent it to paying customers. It addresses the scenario where your equipment is in a customer's custody and sustains damage or is lost. Some equipment floaters include this provision automatically; others treat it as an optional add-on; and some standard commercial policies exclude it entirely. If you are renting out equipment you own—which is the core of your business model—you should verify explicitly whether your current policy includes rented-to-others language, and add it if not."
+    },
+    {
+      "q": "How much does equipment rental insurance cost?",
+      "a": "Total annual insurance costs for a small to mid-size equipment rental yard typically range from $12,000 to $35,000 across all lines, depending on fleet value, revenue, employee count, and claims history. The inland marine / equipment floater—your largest single cost—is generally priced at 1.0%–3.0% of insured fleet value per year. A $1 million fleet would typically generate $10,000–$30,000 in floater premium alone. General liability adds $2,500–$7,500 depending on limits and payroll, commercial auto varies by vehicle count, and equipment breakdown is typically $800–$3,000 per year for a mid-size operation."
+    },
+    {
+      "q": "What does equipment breakdown insurance cover?",
+      "a": "Equipment breakdown insurance (sometimes called boiler and machinery or mechanical breakdown coverage) covers the sudden and accidental internal failure of mechanical or electrical equipment—specifically the type of breakdown that an equipment floater excludes. A floater covers external events: theft, collision, vandalism, and weather. Equipment breakdown covers internal failures: a hydraulic pump that fails, a transmission that seizes, an electrical system that shorts out. For high-utilization rental fleets where equipment is operated continuously by customers who may not follow maintenance protocols, breakdown coverage addresses a real and frequent exposure."
+    },
+    {
+      "q": "If a customer damages my equipment, who pays?",
+      "a": "When a customer damages your equipment, your equipment floater is the primary coverage that pays for repair or replacement—subject to your deductible. Your rental agreement should include a provision allowing you to recover the deductible from the customer, and if the customer has renters liability coverage or a general liability policy that covers damage to rented equipment in their care, custody, and control, your insurer may pursue subrogation against their carrier. In practice, your equipment floater is the backstop that ensures you are made whole regardless of whether recovery from the customer or their insurer is successful."
+    },
+    {
+      "q": "Can I require customers to provide proof of insurance before renting?",
+      "a": "Yes—and many professional equipment rental operations do exactly this for high-value rentals or commercial customers. You can require customers to present a Certificate of Insurance (COI) showing active general liability coverage before equipment is released, and you can require that your company be listed as an additional insured on their policy. This creates documented insurance accountability and provides a subrogation path if your insurer needs to pursue recovery after a claim. For equipment valued above a certain threshold—commonly $25,000–$50,000—making COI verification a standard part of the rental checkout process is considered best practice."
+    },
+    {
+      "q": "What is scheduled vs. blanket equipment coverage?",
+      "a": "A scheduled equipment floater lists each piece of equipment individually—make, model, year, serial number, and insured value—and coverage applies specifically to each listed unit. A blanket floater covers all equipment within a category up to a total limit, without itemizing individual units. Scheduled coverage works well for operations with stable, high-value fleets where per-unit accuracy is important. Blanket coverage is better suited to high-turnover rental operations where the fleet composition changes frequently, as it automatically covers newly acquired equipment without requiring schedule updates. Many rental yards use a hybrid: blanket for the working fleet, scheduled endorsements for units over $75,000–$100,000 in value."
+    },
+    {
+      "q": "Does commercial auto cover my delivery trucks and trailers?",
+      "a": "Yes—commercial auto insurance covers vehicles owned by your business that are used for business purposes, including delivery trucks, flatbeds, and lowboys used to transport equipment. Equipment trailers should also be listed on the commercial auto policy with their actual replacement value, as trailer values have risen significantly in recent years. If employees or contractors sometimes use personal vehicles for business errands—parts runs, delivery coordination—hired and non-owned auto (HNOA) coverage fills the gap for business use of vehicles the company doesn't own. Verify that your policy includes HNOA if this situation applies to your operation."
+    },
+    {
+      "q": "What happens if my equipment is stolen from a customer's job site?",
+      "a": "Theft from a customer's job site is covered under your equipment floater, provided the policy includes theft and mysterious disappearance coverage—which any properly structured rental yard policy should. Your insurer will pay the scheduled or blanket value of the stolen unit (less your deductible) after you file a police report and cooperate with the investigation. Your insurer may then pursue subrogation against the customer if the theft resulted from the customer's failure to maintain reasonable site security as specified in your rental agreement. The deductible is typically recoverable from the customer under your rental agreement's damage liability provisions."
+    },
+    {
+      "q": "How quickly can I get a certificate of insurance for my rental business?",
+      "a": "With a specialty broker like CCA, certificates of insurance are typically issued the same day—often within a few hours of the request. The standard ACORD 25 certificate form is generated through carrier or broker portal systems. If your policy already includes a blanket additional insured endorsement, your agent can issue the certificate directly without needing carrier approval, which is the fastest path. To ensure same-day turnaround, provide your agent with the exact legal name and address of the certificate holder, the required additional insured name (if different), coverage limits needed, and any special endorsements requested (waiver of subrogation, primary/non-contributory language)."
+    },
+    {
+      "q": "Do I need a commercial umbrella policy for my equipment rental company?",
+      "a": "A commercial umbrella policy is strongly recommended for most equipment rental companies and is increasingly required by large customers. An umbrella provides excess liability limits above your underlying GL, commercial auto, and workers' comp policies—paying when a claim exhausts the underlying policy limits. Large general contractors and commercial project owners commonly require $5 million or more in combined liability limits before permitting your equipment on their projects. A $1 million umbrella typically costs $1,200–$3,500 per year, making it one of the most cost-efficient ways to reach the higher limits that your best customers require."
+    },
+    {
+      "q": "What is 'mysterious disappearance' coverage and why does it matter for rental companies?",
+      "a": "Mysterious disappearance coverage applies when insured property cannot be accounted for and there is no evidence of theft, accident, or other covered event—it simply vanished. For equipment rental companies, this is highly relevant: equipment rented out on a short-term basis occasionally doesn't come back, and it's not always possible to establish that a theft occurred in the way that satisfies a standard theft claim. Standard property policies often exclude mysterious disappearance; equipment floaters written specifically for rental operations typically include it. If your floater doesn't include mysterious disappearance language, you have a gap that matters every time equipment is out of your direct control."
+    },
+    {
+      "q": "How do equipment rental insurance rates compare to contractor insurance rates?",
+      "a": "Equipment rental company insurance is generally priced differently from contractor insurance because the risk profiles differ in important ways. Contractors operate their own equipment with trained employees; rental companies have equipment operated by many different people across many different sites—a fundamentally higher operator variability exposure. General liability rates for rental companies often reflect the products and completed operations exposure that arises from equipment owned and rented to others, which is different from a contractor's operations liability. Inland marine rates for rental fleets may be slightly higher than for contractor-owned equipment because of the higher theft and damage frequency associated with multi-operator, high-utilization use."
+    },
+    {
+      "q": "What NAICS/SIC codes apply to equipment rental businesses?",
+      "a": "The primary NAICS code for construction and industrial equipment rental companies is 532412 (Construction, Mining and Forestry Machinery and Equipment Rental and Leasing) or 532490 (Other Commercial and Industrial Machinery and Equipment Rental and Leasing), depending on the equipment categories you rent. The corresponding SIC codes are 7359 (Equipment Rental and Leasing, Not Elsewhere Classified) and 5082/5084 for equipment dealers who also rent. The correct classification matters for insurance rating because underwriters use industry codes to benchmark loss experience and set appropriate rate tiers. Misclassification as a contractor rather than a rental company can result in incorrect coverage terms or exclusions."
+    },
+    {
+      "q": "Do I need separate coverage for equipment in transit?",
+      "a": "Transit coverage is typically included within your inland marine / equipment floater policy, but the specific terms vary by policy form. Your floater should specify whether transit coverage applies when equipment is transported by your own trucks, by a customer's vehicle, or by a third-party carrier—and whether it covers loading and unloading operations. Some policies have sublimits or separate deductibles for transit losses. Your commercial auto policy may also overlap with transit coverage when your own vehicles are involved. Review both policies together to confirm there are no gaps, particularly for high-value loads or interstate transport."
+    },
+    {
+      "q": "What liability limits do large construction companies require when renting equipment?",
+      "a": "Large general contractors and commercial project owners typically require a minimum of $1 million per occurrence / $2 million aggregate in general liability, and $1 million combined single limit in commercial auto—these are the standard baseline requirements. For major commercial projects, government contracts, or tier-one GC relationships, requirements commonly escalate to $2 million per occurrence / $4 million aggregate in GL, with a $5 million or $10 million umbrella sitting above. Additional insured status, waiver of subrogation, and primary/non-contributory language are almost universally required. Having these endorsements built into your policy structure—rather than added one at a time—makes it significantly easier to qualify for commercial project work."
+    },
+    {
+      "q": "Can I get coverage for both owned equipment and rented-in/leased equipment?",
+      "a": "Yes—an inland marine policy can be structured to cover both equipment you own and equipment you have rented-in or leased from another party to supplement your fleet during peak season or for specialty jobs. Coverage for rented-in or leased equipment is typically handled through a 'leased or rented equipment' endorsement that specifies the coverage limit applicable to equipment in your temporary custody that you don't own. The limit should reflect the maximum value of rented-in equipment you might have at any given time, and you should confirm whether the equipment owner's policy contains a waiver of subrogation so their carrier cannot pursue your insurer after paying a loss."
+    }
+  ],
+  "general": [
+    {
+      "q": "How much does equipment rental insurance cost?",
+      "a": "Cost is driven by your fleet value (the largest factor), annual rental revenue, employee count and payroll, the types of equipment you rent, delivery radius, and loss history. We quote your actual operation in about 15 minutes — never a generic estimate. A small specialty yard may pay under $15,000 a year while a large multi-branch operation with a heavy delivery fleet runs considerably more."
+    },
+    {
+      "q": "Do you write equipment rental insurance in all 50 states?",
+      "a": "Yes. Contractors Choice Agency is licensed in all 50 states and writes programs for equipment rental companies nationwide — Phoenix, Dallas-Fort Worth, Denver, Atlanta, Nashville, Tampa, Salt Lake City, and everywhere rental yards operate."
+    },
+    {
+      "q": "How fast can we get a quote?",
+      "a": "Typically 15 minutes on a call. For larger fleets or high-value programs we may need a day or two to involve the right specialty markets, but we move fast and set expectations up front. Certificates of insurance are issued same-day once the program is bound."
+    },
+    {
+      "q": "Will you insure a rental company that's been declined or has prior losses?",
+      "a": "Often yes. We have admitted and excess-and-surplus (E&S) markets for rental companies declined over a high theft loss run, a prior total-loss claim, OSHA citations, or new-operation status. Bring us your situation and we'll find a path."
+    },
+    {
+      "q": "Should I bundle all my rental coverage with one program?",
+      "a": "Usually yes. Bundling inland marine, general liability, commercial auto, equipment breakdown, and umbrella into one coordinated program closes gaps between policies, is almost always cheaper than separate policies from separate carriers, and is far easier to manage at claim time."
+    },
+    {
+      "q": "What does an A-rated carrier mean and why does it matter?",
+      "a": "A.M. Best ratings reflect a carrier's financial strength and ability to pay claims. We place coverage with A-rated (and A.M. Best A+ where possible) carriers so the coverage is there when a major theft, a serious accident, or an injury claim hits your rental operation."
+    },
+    {
+      "q": "What information do you need to quote my rental yard?",
+      "a": "Fleet list with makes, models, years, serial numbers, and values; number of rental units; annual rental revenue; employee count and payroll by role; delivery radius and whether you deliver or require pickup; equipment categories rented; current carrier and loss history. The more detail, the more accurate the quote."
+    },
+    {
+      "q": "Do you insure party and event rental companies too?",
+      "a": "Yes. Party and event rental operations — tents, tables, bounce houses, staging, lighting — carry similar inland marine and rented-to-others exposures plus distinct product/setup liability. We tailor the program to the equipment category you rent, whether that's heavy construction or event rentals."
+    },
+    {
+      "q": "How do I handle certificates of insurance (COIs) for my rental customers?",
+      "a": "We set up a blanket additional insured endorsement so you can issue certificates quickly to customers who require it. For high-value rentals we recommend requiring the customer's COI naming you as additional insured and loss payee before release. Your agent can issue same-day ACORD 25 certificates once the endorsement is in place."
+    },
+    {
+      "q": "Does equipment rental insurance cover tools and small equipment?",
+      "a": "Yes — hand tools, power tools, generators, compressors, and small equipment are scheduled under the inland marine floater alongside the heavy iron. Smaller items are the most frequently stolen category, so we make sure the schedule and limits reflect the full fleet, not just the big-ticket units."
+    },
+    {
+      "q": "Can you coordinate coverage across multiple rental branches or yards?",
+      "a": "Yes. If you operate from multiple locations, we build one coordinated program covering every branch, yard, and delivery route with no gaps between sites — and with consistent limits and additional-insured terms across the whole operation."
+    },
+    {
+      "q": "Are my trailers and delivery vehicles covered separately from the rental fleet?",
+      "a": "Yes. Delivery trucks, flatbeds, lowboys, and trailers used to transport equipment are covered under commercial auto, while the rental equipment itself rides on the inland marine floater. We coordinate both so there's no gap when equipment is on your truck and no double-payment question at claim time."
+    },
+    {
+      "q": "What deductible structure makes sense for a rental yard?",
+      "a": "Most rental yards carry a deductible between $1,000 and $5,000 on the equipment floater, balancing premium savings against out-of-pocket risk. Higher deductibles lower premium but mean more self-insured loss per claim; we model the break-even so you pick a deductible that fits your cash flow and loss frequency."
+    },
+    {
+      "q": "Do you offer coverage for rented-in or leased equipment during peak season?",
+      "a": "Yes. When you supplement your owned fleet with rented-in or leased equipment for peak season or specialty jobs, we add a leased/rented equipment endorsement sized to the maximum value you expect to hold at once, so that temporary capacity is covered too."
+    },
+    {
+      "q": "How are high-value units like excavators and boom lifts insured?",
+      "a": "High-value units (typically those over $75,000–$100,000) are scheduled individually at agreed value so there's no depreciation dispute at claim time. We document serial numbers, hours, and condition up front so a total-loss claim on a $250,000 excavator pays what the unit is actually worth."
+    }
+  ],
+  "services": {
+    "inland-marine": [
+      {
+        "q": "What is inland marine insurance for an equipment rental company?",
+        "a": "Inland marine — written as an equipment floater — is the policy that follows your rental equipment wherever it goes: to customer job sites, in transit on your trucks, and in storage. It covers theft, physical damage, vandalism, and mysterious disappearance, none of which standard commercial property (which only covers property at your fixed yard) will pay for."
+      },
+      {
+        "q": "What is the difference between an equipment floater and scheduled vs. blanket coverage?",
+        "a": "Scheduled coverage lists each unit individually with serial number and insured value — best for high-value, stable fleets. Blanket coverage covers a category up to a total limit and automatically picks up newly acquired equipment — best for high-turnover yards. Many rental companies run a hybrid: blanket for the working fleet, scheduled endorsements on units over $75,000–$100,000."
+      },
+      {
+        "q": "Does the floater cover equipment stolen from a customer's job site?",
+        "a": "Yes. Theft from a customer's site is covered under the floater, provided it includes theft and mysterious disappearance (any properly structured rental policy should). Your insurer pays the scheduled value less your deductible after a police report, and may subrogate against the customer if their site-security obligations under your rental agreement weren't met."
+      },
+      {
+        "q": "Is my rental equipment covered while in transit?",
+        "a": "Transit coverage is typically included within the floater, but terms vary by form. We confirm whether transit applies when equipment moves on your trucks, a customer's vehicle, or a third-party carrier — and whether loading and unloading are covered — so there's no gap between the yard and the job site."
+      },
+      {
+        "q": "How is the floater priced for a rental fleet?",
+        "a": "Inland marine for rental fleets is generally priced at roughly 1.0%–3.0% of insured fleet value per year, reflecting the higher theft and damage frequency of multi-operator, high-utilization use. High-value scheduled units, large delivery radius, and poor loss history push the rate up; good housekeeping and security documentation bring it down."
+      },
+      {
+        "q": "Does the floater cover equipment I rent in or lease to supplement my fleet?",
+        "a": "Yes, with a leased or rented-equipment endorsement sized to the maximum value you'd hold at once. We confirm whether the equipment owner's policy carries a waiver of subrogation so their carrier can't pursue your insurer after paying a loss on the rented-in unit."
+      }
+    ],
+    "general-liability": [
+      {
+        "q": "What does general liability cover for an equipment rental company?",
+        "a": "GL covers third-party bodily injury and property damage claims arising from your rental operations — a customer injured while operating your equipment, property damage at a delivery site, or a claim that your equipment caused harm. It does not cover physical damage to your own equipment; that's the equipment floater."
+      },
+      {
+        "q": "What liability limits do my rental customers require?",
+        "a": "Most commercial customers and GCs require at least $1 million per occurrence / $2 million aggregate. Major commercial projects and government work commonly require $2M/$4M with a $5M–$10M umbrella above. Additional insured, waiver of subrogation, and primary/non-contributory endorsements are almost universally required."
+      },
+      {
+        "q": "Does GL cover damage a customer does to their own property with my equipment?",
+        "a": "Generally no — that's the customer's responsibility under their own coverage, which is why requiring their COI is best practice on high-value rentals. Your GL responds when a third party sues you as the equipment owner for injury or damage your rental operation caused."
+      },
+      {
+        "q": "Do I need products and completed operations coverage as a rental company?",
+        "a": "Yes — rental operations carry a products-completed operations exposure because you rent equipment to others for their use. We structure GL with products and completed operations so the coverage tail follows the equipment after it leaves your yard."
+      },
+      {
+        "q": "How does GL coordinate with my equipment floater and auto?",
+        "a": "GL covers third-party injury and damage; the floater covers your equipment; commercial auto covers your delivery vehicles. We coordinate all three so there's no gap where a claim falls between policies — which is where most coverage disputes happen."
+      }
+    ],
+    "equipment-breakdown": [
+      {
+        "q": "What does equipment breakdown insurance cover?",
+        "a": "Equipment breakdown (also called boiler and machinery) covers sudden, accidental internal mechanical or electrical failure — a seized transmission, a failed hydraulic pump, a shorted electrical system. It covers exactly the failures an equipment floater excludes, since floaters cover external events (theft, collision, weather) not internal mechanical breakdown."
+      },
+      {
+        "q": "Doesn't my equipment floater cover mechanical breakdown?",
+        "a": "No. Floaters cover external causes — theft, collision, vandalism, fire, weather. Internal mechanical or electrical failure is excluded and requires a separate equipment-breakdown policy. For high-utilization rental fleets run by many different operators, internal failures are a real and frequent exposure."
+      },
+      {
+        "q": "How much does equipment breakdown coverage cost?",
+        "a": "Typically $800–$3,000 per year for a mid-size rental operation, depending on the value and type of equipment scheduled. Given that a single hydraulic or transmission failure on a large excavator can run tens of thousands to repair, breakdown coverage is one of the most cost-effective lines in the program."
+      },
+      {
+        "q": "Does it cover wear and tear?",
+        "a": "No — equipment breakdown covers sudden and accidental failure, not gradual wear, routine maintenance items, or normal degradation. We help you document maintenance so legitimate sudden failures are paid without dispute over whether the cause was wear."
+      },
+      {
+        "q": "Is equipment breakdown required for a rental yard?",
+        "a": "Not legally required, but strongly recommended. Because your equipment is operated by customers of varying skill on demanding job sites, internal failures happen far more often than in owner-operated fleets. The coverage pays for itself the first time a major component fails."
+      }
+    ],
+    "rented-to-others": [
+      {
+        "q": "What is rented-to-others coverage?",
+        "a": "Rented-to-others is a specialized inland marine endorsement or stand-alone policy for companies that own equipment and rent it to paying customers. It specifically addresses the exposure created when your equipment is in a customer's care, custody, and control — the core of your business model."
+      },
+      {
+        "q": "Doesn't my equipment floater already cover rented equipment?",
+        "a": "Not always. Some floaters include rented-to-others language automatically, others treat it as an optional endorsement, and some standard commercial policies exclude it entirely. If you rent out equipment you own, you must verify explicitly that the rented-to-others provision is included — otherwise damage to your equipment while in a customer's hands can be denied."
+      },
+      {
+        "q": "What's the difference between rented-to-others and a standard equipment floater?",
+        "a": "A standard floater covers your equipment at your premises and in transit. Rented-to-others extends coverage to the unique exposure of your equipment being operated by paying customers at their own sites — including damage, abuse, and the customer-side risks that ordinary floaters were never built to handle."
+      },
+      {
+        "q": "Should I require a COI from my rental customers anyway?",
+        "a": "Yes, especially on high-value rentals. Requiring the customer's COI (with you as additional insured and loss payee) creates a subrogation path so your insurer can recover from the customer's carrier after a loss — protecting your loss history and deductible."
+      },
+      {
+        "q": "Does rented-to-others cover damage the customer causes to my equipment?",
+        "a": "Yes — that's its primary purpose. When a customer damages, abuses, or loses your rented equipment, rented-to-others coverage pays for repair or replacement so you're made whole, and your insurer can then pursue the customer or their carrier for recovery."
+      }
+    ],
+    "commercial-auto": [
+      {
+        "q": "Does commercial auto cover my delivery trucks and equipment trailers?",
+        "a": "Yes. Commercial auto covers delivery trucks, flatbeds, lowboys, and trailers you own and use for business. Trailers should be listed on the policy at their real replacement value — trailer values have risen sharply in recent years and are often under-scheduled."
+      },
+      {
+        "q": "What is hired and non-owned auto (HNOA) and do I need it?",
+        "a": "HNOA covers liability when employees use personal or rented vehicles for business errands — parts runs, delivery coordination, customer pickups. If anyone in your operation drives a personal vehicle on company business, you want HNOA in the policy."
+      },
+      {
+        "q": "Is the equipment on my delivery truck covered by commercial auto?",
+        "a": "No. The truck itself is covered by commercial auto; the rental equipment riding on it is covered by the inland marine floater. We coordinate both so there's no gap during loading, transit, and unloading — and no dispute about which policy responds."
+      },
+      {
+        "q": "What auto limits do my commercial rental customers require?",
+        "a": "Most commercial customers require at least $1 million combined single limit on commercial auto, often higher for major projects. A $1M CSL on the auto policy with a commercial umbrella above is the standard structure that satisfies most GC and project-owner requirements."
+      },
+      {
+        "q": "Do I need commercial auto if I don't deliver and customers pick up?",
+        "a": "If you operate any business-owned vehicle — even a pickup used for parts runs or yard work — you need commercial auto. If employees drive personal vehicles for business errands, you still want hired and non-owned auto coverage."
+      }
+    ],
+    "workers-compensation": [
+      {
+        "q": "Is workers' comp required for an equipment rental company?",
+        "a": "In nearly every U.S. state, yes — workers' comp is mandatory once you have W-2 employees. Equipment rental work is high-hazard (heavy lifting, delivery driving, mechanics working around running equipment), making proper coverage essential for both your crew and your protection."
+      },
+      {
+        "q": "What class codes apply to equipment rental employees?",
+        "a": "Rental yards carry several codes — yard and counter staff, delivery drivers (the highest-rated), mechanics, and office staff. Correct classification matters: wrong codes mean premium disputes at audit, gaps in coverage, or overpaying. We assign codes to your actual job categories."
+      },
+      {
+        "q": "Are delivery drivers rated differently than yard staff?",
+        "a": "Yes. Delivery drivers carry higher workers' comp rates because of the driving exposure and the physical loading/unloading at customer sites. Mechanics working around running equipment are also rated higher than counter and office staff."
+      },
+      {
+        "q": "How are seasonal workers handled?",
+        "a": "Seasonal workers hired for peak construction season must still be reflected in the workers' comp policy. We structure the policy to cover your actual seasonal payroll and crew size so the year-end audit doesn't produce a surprise bill."
+      },
+      {
+        "q": "What if my employees are misclassified?",
+        "a": "Misclassification leads to premium disputes at audit and gaps in coverage at claim time. We assign class codes to your actual workflow — yard, delivery, mechanic, office — so you're neither overpaying nor exposed when an injury claim happens."
+      }
+    ],
+    "umbrella": [
+      {
+        "q": "What does a commercial umbrella cover for an equipment rental company?",
+        "a": "An umbrella provides excess liability limits that sit above your general liability, commercial auto, and employers' liability. When a serious claim — a major auto accident involving a delivery truck, or a severe injury from rented equipment — exhausts the underlying policy limits, the umbrella responds and protects your assets."
+      },
+      {
+        "q": "How much umbrella coverage does a rental yard need?",
+        "a": "Most rental yards carry $1M–$5M of umbrella, sized to what their largest commercial customers require. Many GCs and project owners require $5M or more in combined liability limits before your equipment is permitted on their projects."
+      },
+      {
+        "q": "How much does a commercial umbrella cost?",
+        "a": "A $1 million umbrella typically costs $1,200–$3,500 per year — one of the most cost-effective layers in the program, given the severity of claims that rental operations can generate (serious auto accidents, severe equipment injuries)."
+      },
+      {
+        "q": "Does the umbrella sit over my equipment floater too?",
+        "a": "No — the umbrella sits over liability policies (GL, commercial auto, employers' liability), not over the property/inland marine floater. The floater has its own scheduled limit for the equipment itself; the umbrella protects against large third-party liability claims."
+      },
+      {
+        "q": "Will an umbrella help me qualify for commercial project work?",
+        "a": "Yes. Large GCs and commercial project owners commonly require $5M+ in combined liability limits. Carrying an umbrella that meets or exceeds those requirements makes you bid-eligible for tier-one commercial and government work that smaller competitors can't qualify for."
+      }
+    ]
+  }
+}

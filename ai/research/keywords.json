@@ -1,0 +1,292 @@
+{
+  "niche": "Equipment Rental Company Insurance",
+  "domain": "equipmentrentalinsurance.com",
+  "researched": "2026-06-19",
+  "data_source": "DataForSEO (Google Ads + Labs)",
+  "primary_keywords": [
+    {
+      "keyword": "equipment rental insurance",
+      "volume": 720,
+      "cpc": 17.19,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "rental equipment insurance",
+      "volume": 720,
+      "cpc": 17.19,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "insurance for construction equipment",
+      "volume": 590,
+      "cpc": 22.05,
+      "difficulty": 1,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "equipment breakdown insurance",
+      "volume": 480,
+      "cpc": 7.39,
+      "difficulty": 13,
+      "competition": "LOW",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "equipment floater insurance",
+      "volume": 140,
+      "cpc": 16.23,
+      "difficulty": 0,
+      "competition": "LOW",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "equipment rental business insurance",
+      "volume": 140,
+      "cpc": 22.09,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "equipment rental company insurance",
+      "volume": 140,
+      "cpc": 22.09,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "insurance for equipment rental companies",
+      "volume": 140,
+      "cpc": 22.09,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    }
+  ],
+  "secondary_keywords": [
+    {
+      "keyword": "construction equipment rental insurance",
+      "volume": 70,
+      "cpc": 11.75,
+      "difficulty": 0,
+      "competition": "LOW",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "short term equipment rental insurance",
+      "volume": 70,
+      "cpc": 9.16,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "equipment dealer insurance",
+      "volume": 70,
+      "cpc": 57.11,
+      "difficulty": 0,
+      "competition": "LOW",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "general liability insurance for rental equipment",
+      "volume": 50,
+      "cpc": 35.43,
+      "difficulty": 0,
+      "competition": "LOW",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "heavy equipment rental insurance",
+      "volume": 50,
+      "cpc": 13.93,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "inland marine equipment insurance",
+      "volume": 50,
+      "cpc": 24.56,
+      "difficulty": 7,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "rented equipment coverage",
+      "volume": 10,
+      "cpc": 59.57,
+      "difficulty": 0,
+      "competition": "HIGH",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "tool rental insurance",
+      "volume": 10,
+      "cpc": 8.43,
+      "difficulty": 0,
+      "competition": "HIGH",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "skid steer rental insurance",
+      "volume": 20,
+      "cpc": 18.40,
+      "difficulty": 43,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "certificate of insurance for rental equipment",
+      "volume": 20,
+      "cpc": 16.40,
+      "difficulty": 11,
+      "competition": "MEDIUM",
+      "intent": "informational"
+    },
+    {
+      "keyword": "inland marine equipment floater",
+      "volume": 10,
+      "cpc": 13.00,
+      "difficulty": 0,
+      "competition": "LOW",
+      "intent": "informational"
+    },
+    {
+      "keyword": "insurance for renting out equipment",
+      "volume": 10,
+      "cpc": 10.06,
+      "difficulty": 0,
+      "competition": "HIGH",
+      "intent": "commercial"
+    }
+  ],
+  "long_tail": [
+    {
+      "keyword": "insurance for equipment rental companies",
+      "volume": 140,
+      "cpc": 22.09,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "short term equipment rental insurance cost",
+      "volume": 70,
+      "cpc": 19.92,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "business insurance for rental equipment",
+      "volume": 30,
+      "cpc": 20.78,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "rental equipment insurance coverage",
+      "volume": 30,
+      "cpc": 15.67,
+      "difficulty": 0,
+      "competition": "HIGH",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "insurance for equipment rental business",
+      "volume": 30,
+      "cpc": 20.78,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "equipment rental insurance cost",
+      "volume": 30,
+      "cpc": 6.85,
+      "difficulty": 0,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "film equipment rental insurance",
+      "volume": 30,
+      "cpc": 10.73,
+      "difficulty": 6,
+      "competition": "MEDIUM",
+      "intent": "commercial"
+    },
+    {
+      "keyword": "certificate of insurance rental equipment",
+      "volume": 20,
+      "cpc": 16.40,
+      "difficulty": 11,
+      "competition": "MEDIUM",
+      "intent": "informational"
+    },
+    {
+      "keyword": "how much does equipment rental insurance cost",
+      "volume": 0,
+      "cpc": 0,
+      "difficulty": 0,
+      "competition": null,
+      "intent": "informational",
+      "notes": "Low volume but high conversion intent; worth targeting in FAQ/blog"
+    },
+    {
+      "keyword": "what insurance does a rental company need",
+      "volume": 0,
+      "cpc": 0,
+      "difficulty": 0,
+      "competition": null,
+      "intent": "informational",
+      "notes": "Excellent PAA/FAQ target"
+    },
+    {
+      "keyword": "rented to others insurance",
+      "volume": 0,
+      "cpc": 0,
+      "difficulty": 0,
+      "competition": null,
+      "intent": "commercial",
+      "notes": "Industry term — low search volume, high topical relevance"
+    },
+    {
+      "keyword": "equipment rental workers comp",
+      "volume": 0,
+      "cpc": 0,
+      "difficulty": 0,
+      "competition": null,
+      "intent": "commercial",
+      "notes": "Niche long-tail; workers' comp service page target"
+    }
+  ],
+  "paa_questions": [
+    "What insurance does an equipment rental company need?",
+    "How much does equipment rental insurance cost?",
+    "What is inland marine insurance for equipment?",
+    "What is an equipment floater insurance policy?",
+    "Does a renter need their own insurance for rented equipment?",
+    "What is rented-to-others coverage?",
+    "What does commercial general liability cover for rental businesses?",
+    "Do equipment rental companies need workers compensation insurance?"
+  ],
+  "notes": {
+    "opportunity": "Primary keywords have difficulty 0 across the board — this is a very low-competition niche with real commercial intent and solid CPCs ($17-$59). Domain match (equipmentrentalinsurance.com) is a strong advantage.",
+    "top_value_keywords": [
+      "equipment rental insurance (720/mo, $17.19 CPC, diff=0)",
+      "insurance for construction equipment (590/mo, $22.05 CPC, diff=1)",
+      "equipment breakdown insurance (480/mo, $7.39 CPC, diff=13)",
+      "equipment floater insurance (140/mo, $16.23 CPC, diff=0)",
+      "rented equipment coverage (10/mo, $59.57 CPC — highest CPC in set)"
+    ]
+  }
+}

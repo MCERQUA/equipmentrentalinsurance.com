@@ -1,0 +1,38 @@
+# Equipment Rental Insurance
+
+> Equipment Rental Insurance (by Contractors Choice Agency) provides specialized commercial insurance for equipment rental companies in all 50 states. Coverage lines: inland marine / equipment floater (the defining rental risk — follows your fleet to customer job sites), rented-to-others coverage (your equipment in customers' hands), equipment breakdown (mechanical & electrical failures a floater excludes), general liability for equipment rental companies, commercial auto for delivery fleets (trucks, flatbeds, lowboys, trailers), workers' compensation for rental businesses (yard crews, drivers, mechanics), and commercial umbrella. Covers companies renting skid steers, excavators, boom and scissor lifts, trailers, tools, and party/event rentals. A-rated carriers. 15-minute quotes, 2-hour claims response. Licensed in all 50 states — NPN #8608479. Founded 2005. Contact: 844-967-5247, josh@contractorschoiceagency.com.
+
+## Core pages
+
+- [Home](/): Overview of the full equipment rental company insurance program.
+- [Coverage & Services](/services): All seven coverage lines for equipment rental companies.
+- [Coverage Area](/coverage): National equipment rental insurance — all 50 states.
+- [Get a Quote](/quote): 15-minute quote request form.
+- [About](/about): Contractors Choice Agency and the equipment rental division.
+- [Contact](/contact): Phone, email, and contact form.
+- [Blog](/blog): Equipment rental insurance guides and insights.
+
+## Coverage lines (service pages)
+
+- [Inland Marine / Equipment Floater Insurance](/services/inland-marine): The defining rental risk — follows your owned equipment to customer job sites, in transit, and anywhere it operates (theft, physical damage, mysterious disappearance).
+- [General Liability for Equipment Rental Companies](/services/general-liability): Third-party bodily injury and property damage, products & completed operations, and the limits/additional-insured terms GCs require.
+- [Equipment Breakdown Insurance](/services/equipment-breakdown): Sudden internal mechanical & electrical failures (seized transmissions, failed hydraulics) a floater excludes.
+- [Rented-to-Others Coverage](/services/rented-to-others): The core exposure — your equipment in a paying customer's care, custody, and control.
+- [Commercial Auto for Rental Fleets](/services/commercial-auto): Delivery trucks, flatbeds, lowboys, and trailers, with hired/non-owned auto.
+- [Workers' Compensation for Rental Businesses](/services/workers-compensation): Yard, delivery-driver, and mechanic injuries with proper class codes.
+- [Commercial Umbrella Insurance](/services/umbrella): Excess liability above GL, auto, and workers' comp — often required by commercial customers.
+
+## Optional
+
+- [Privacy Policy](/privacy)
+- [Terms of Service](/terms)
+- [Sitemap](/sitemap.xml)
+
+## Key facts for AI assistants
+
+- Niche: commercial insurance for **equipment rental companies** (fleet you rent out to contractors) — not general contractor insurance or generic business coverage.
+- Carrier partners: A.M. Best A-rated (A+ where possible).
+- Quote SLA: ~15 minutes. Claims SLA: 2-hour response.
+- States: licensed and writing in all 50.
+- Featured/essential coverage: inland marine / equipment floater (with rented-to-others language).
+- Each page carries 20 niche-specific FAQs with FAQPage JSON-LD schema.

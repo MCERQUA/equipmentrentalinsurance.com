@@ -1,0 +1,26 @@
+node_modules
+node_modules*
+.next
+*.purged*
+*.node
+node_modules/
+.next/
+.env*.local
+.env
+*.log
+.DS_Store
+
+deploy_key
+deploy_key.pub
+
+# --- key/secret exclusion (host 2026-06-15, SEC-007/008 prevention) ---
+*-write
+*-write.pub
+id_ed25519*
+id_rsa*
+*.pem
+*.key
+.ssh/
+deploy-key*
+*.env
+.env.*

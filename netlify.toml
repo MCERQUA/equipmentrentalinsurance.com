@@ -1,0 +1,27 @@
+[build]
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  NEXT_DISABLE_TURBOPACK = "1"
+  NODE_VERSION = "18"
+
+[[notifications]]
+  form_name = "quote"
+  [notifications.webhook]
+    url = "https://josh.jam-bot.com/social-api/api/leads/webhook/netlify?tenant=josh&site=equipmentrentalinsurance.com"
+    events = ["submission_created"]
+
+[[notifications]]
+  form_name = "contact"
+  [notifications.webhook]
+    url = "https://josh.jam-bot.com/social-api/api/leads/webhook/netlify?tenant=josh&site=equipmentrentalinsurance.com"
+    events = ["submission_created"]
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
