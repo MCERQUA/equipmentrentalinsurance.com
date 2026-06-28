@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { SITE, SERVICES, LOCATIONS } from "@/lib/site";
 import { getAllPosts } from "@/lib/blog";
 
+// Required under `output: export` — metadata route handlers must be force-static.
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const base = SITE.url;
