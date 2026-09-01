@@ -20,7 +20,7 @@ const trustItems = [
 
 type EquipmentRow = { year: string; make: string; model: string; serial: string; value: string };
 const blankEquipment = (): EquipmentRow => ({ year: "", make: "", model: "", serial: "", value: "" });
-const MAX_EQUIPMENT = 10;
+const MAX_EQUIPMENT = 5;   // every row is declared in public/__forms.html; keep in sync
 
 /** One line per piece, so the CSR reads it as a list rather than a blob. */
 function serialiseEquipment(rows: EquipmentRow[]): string {
@@ -32,7 +32,8 @@ function serialiseEquipment(rows: EquipmentRow[]): string {
 
 export default function QuotePage() {
   const [formData, setFormData] = useState({
-    name: "", businessName: "", email: "", phone: "", streetAddress: "", state: "", fein: "",
+    name: "", businessName: "", email: "", phone: "",
+    streetAddress: "", city: "", state: "", zip: "", fein: "",
     serviceType: "", yearsInBusiness: "", message: "", "bot-field": "",
   });
   // Josh (site-manager note): "create sections for rental equipment including year, make,
@@ -61,16 +62,21 @@ export default function QuotePage() {
     setSubmitting(true);
     setError("");
     const filled = equipment.filter((r) => r.year || r.make || r.model || r.serial || r.value);
-    const first = filled[0];
-    const equipmentFields = {
+    const equipmentFields: Record<string, string> = {
       equipment: serialiseEquipment(equipment),
       equipmentCount: String(filled.length),
-      equipmentYear: first?.year ?? "",
-      equipmentMake: first?.make ?? "",
-      equipmentModel: first?.model ?? "",
-      equipmentSerialNumber: first?.serial ?? "",
-      equipmentValue: first?.value ?? "",
     };
+    // One declared field per row per attribute, so each piece of equipment survives as its
+    // own column instead of collapsing into the serialised blob. Rows 1..MAX_EQUIPMENT are
+    // always sent (empty when unused) so served names == declared names in __forms.html.
+    for (let i = 0; i < MAX_EQUIPMENT; i++) {
+      const r = equipment[i];
+      equipmentFields[`equipmentYear_${i + 1}`] = r?.year ?? "";
+      equipmentFields[`equipmentMake_${i + 1}`] = r?.make ?? "";
+      equipmentFields[`equipmentModel_${i + 1}`] = r?.model ?? "";
+      equipmentFields[`equipmentSerialNumber_${i + 1}`] = r?.serial ?? "";
+      equipmentFields[`equipmentValue_${i + 1}`] = r?.value ?? "";
+    }
     try {
       await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "quote", source: SITE.domain, ...formData, ...equipmentFields }) });
       setSubmitted(true);
@@ -148,14 +154,17 @@ export default function QuotePage() {
                         <div><label htmlFor="phone" className={labelClass}>Phone *</label><input id="phone" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder={COPY.quote.phonePlaceholder} className={inputClass} /></div>
                       </div>
 
-                      <div><label htmlFor="streetAddress" className={labelClass}>Business address *</label><input id="streetAddress" name="streetAddress" type="text" required value={formData.streetAddress} onChange={handleChange} placeholder="1234 W Main St, Phoenix, AZ 85001" className={inputClass} /></div>
+                      <div><label htmlFor="streetAddress" className={labelClass}>Street address *</label><input id="streetAddress" name="streetAddress" type="text" required value={formData.streetAddress} onChange={handleChange} placeholder="1234 W Main St" className={inputClass} /></div>
 
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN)</label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
-                        <div><label htmlFor="state" className={labelClass}>Primary state *</label>
-                          <select id="state" name="state" required value={formData.state} onChange={handleChange} className={inputClass}><option value="">Select a state…</option>{US_STATES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
+                      <div className="grid sm:grid-cols-3 gap-4">
+                        <div><label htmlFor="city" className={labelClass}>City *</label><input id="city" name="city" type="text" required value={formData.city} onChange={handleChange} placeholder="Phoenix" className={inputClass} /></div>
+                        <div><label htmlFor="state" className={labelClass}>State *</label>
+                          <select id="state" name="state" required value={formData.state} onChange={handleChange} className={inputClass}><option value="">Select…</option>{US_STATES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
                         </div>
+                        <div><label htmlFor="zip" className={labelClass}>ZIP code *</label><input id="zip" name="zip" type="text" inputMode="numeric" required value={formData.zip} onChange={handleChange} placeholder="85001" className={inputClass} /></div>
                       </div>
+
+                      <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN)</label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
 
                       <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business</label>
                         <select id="yearsInBusiness" name="yearsInBusiness" value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
@@ -176,13 +185,13 @@ export default function QuotePage() {
                               )}
                             </div>
                             <div className="grid sm:grid-cols-3 gap-3">
-                              <div><label htmlFor={`equipYear${i}`} className={labelClass}>Year</label><input id={`equipYear${i}`} type="text" inputMode="numeric" value={row.year} onChange={(e) => updateEquipment(i, "year", e.target.value)} placeholder="2021" className={inputClass} /></div>
-                              <div><label htmlFor={`equipMake${i}`} className={labelClass}>Make</label><input id={`equipMake${i}`} type="text" value={row.make} onChange={(e) => updateEquipment(i, "make", e.target.value)} placeholder="Bobcat" className={inputClass} /></div>
-                              <div><label htmlFor={`equipModel${i}`} className={labelClass}>Model</label><input id={`equipModel${i}`} type="text" value={row.model} onChange={(e) => updateEquipment(i, "model", e.target.value)} placeholder="S650" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentYear_${i + 1}`} className={labelClass}>Year</label><input id={`equipmentYear_${i + 1}`} name={`equipmentYear_${i + 1}`} type="text" inputMode="numeric" value={row.year} onChange={(e) => updateEquipment(i, "year", e.target.value)} placeholder="2021" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentMake_${i + 1}`} className={labelClass}>Make</label><input id={`equipmentMake_${i + 1}`} name={`equipmentMake_${i + 1}`} type="text" value={row.make} onChange={(e) => updateEquipment(i, "make", e.target.value)} placeholder="Bobcat" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentModel_${i + 1}`} className={labelClass}>Model</label><input id={`equipmentModel_${i + 1}`} name={`equipmentModel_${i + 1}`} type="text" value={row.model} onChange={(e) => updateEquipment(i, "model", e.target.value)} placeholder="S650" className={inputClass} /></div>
                             </div>
                             <div className="grid sm:grid-cols-2 gap-3">
-                              <div><label htmlFor={`equipSerial${i}`} className={labelClass}>Serial number</label><input id={`equipSerial${i}`} type="text" value={row.serial} onChange={(e) => updateEquipment(i, "serial", e.target.value)} placeholder="ALJ812345" className={inputClass} /></div>
-                              <div><label htmlFor={`equipValue${i}`} className={labelClass}>Value</label><input id={`equipValue${i}`} type="text" inputMode="numeric" value={row.value} onChange={(e) => updateEquipment(i, "value", e.target.value)} placeholder="$45,000" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentSerialNumber_${i + 1}`} className={labelClass}>Serial number</label><input id={`equipmentSerialNumber_${i + 1}`} name={`equipmentSerialNumber_${i + 1}`} type="text" value={row.serial} onChange={(e) => updateEquipment(i, "serial", e.target.value)} placeholder="ALJ812345" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentValue_${i + 1}`} className={labelClass}>Value</label><input id={`equipmentValue_${i + 1}`} name={`equipmentValue_${i + 1}`} type="text" inputMode="numeric" value={row.value} onChange={(e) => updateEquipment(i, "value", e.target.value)} placeholder="$45,000" className={inputClass} /></div>
                             </div>
                           </div>
                         ))}
@@ -191,15 +200,20 @@ export default function QuotePage() {
                           <button type="button" onClick={addEquipment} className="w-full px-4 py-2.5 rounded-xl border border-dashed border-clay/60 text-clay font-heading font-semibold text-sm hover:bg-clay/5 transition-colors">+ Add another piece of equipment</button>
                         )}
 
-                        {/* Netlify captures only declared, named fields — these mirrors carry the
-                            rows into the submission and are declared in public/__forms.html. */}
+                        {/* Netlify captures only declared, named fields. Rows the visitor has not
+                            added still need their names present in the posted form, or served
+                            names drift from public/__forms.html — so emit the unused rows empty. */}
+                        {Array.from({ length: MAX_EQUIPMENT - equipment.length }, (_, k) => k + equipment.length).map((i) => (
+                          <div key={`spare-${i}`} className="hidden">
+                            <input type="hidden" name={`equipmentYear_${i + 1}`} value="" readOnly />
+                            <input type="hidden" name={`equipmentMake_${i + 1}`} value="" readOnly />
+                            <input type="hidden" name={`equipmentModel_${i + 1}`} value="" readOnly />
+                            <input type="hidden" name={`equipmentSerialNumber_${i + 1}`} value="" readOnly />
+                            <input type="hidden" name={`equipmentValue_${i + 1}`} value="" readOnly />
+                          </div>
+                        ))}
                         <input type="hidden" name="equipment" value={serialiseEquipment(equipment)} readOnly />
                         <input type="hidden" name="equipmentCount" value={String(equipment.filter((r) => r.year || r.make || r.model || r.serial || r.value).length)} readOnly />
-                        <input type="hidden" name="equipmentYear" value={equipment[0]?.year ?? ""} readOnly />
-                        <input type="hidden" name="equipmentMake" value={equipment[0]?.make ?? ""} readOnly />
-                        <input type="hidden" name="equipmentModel" value={equipment[0]?.model ?? ""} readOnly />
-                        <input type="hidden" name="equipmentSerialNumber" value={equipment[0]?.serial ?? ""} readOnly />
-                        <input type="hidden" name="equipmentValue" value={equipment[0]?.value ?? ""} readOnly />
                       </div>
 
                       <div><label htmlFor="serviceType" className={labelClass}>What do you need? *</label>
