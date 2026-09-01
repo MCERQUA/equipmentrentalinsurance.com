@@ -18,10 +18,29 @@ const trustItems = [
   { icon: MapPin, title: "All 50 states", desc: `Licensed nationwide — NPN #${SITE.npn}.` },
 ];
 
+type EquipmentRow = { year: string; make: string; model: string; serial: string; value: string };
+const blankEquipment = (): EquipmentRow => ({ year: "", make: "", model: "", serial: "", value: "" });
+const MAX_EQUIPMENT = 10;
+
+/** One line per piece, so the CSR reads it as a list rather than a blob. */
+function serialiseEquipment(rows: EquipmentRow[]): string {
+  return rows
+    .filter((r) => r.year || r.make || r.model || r.serial || r.value)
+    .map((r, i) => `${i + 1}. Year: ${r.year || "—"} | Make: ${r.make || "—"} | Model: ${r.model || "—"} | Serial: ${r.serial || "—"} | Value: ${r.value || "—"}`)
+    .join("\n");
+}
+
 export default function QuotePage() {
   const [formData, setFormData] = useState({
-    name: "", businessName: "", email: "", phone: "", state: "", serviceType: "", yearsInBusiness: "", message: "", "bot-field": "",
+    name: "", businessName: "", email: "", phone: "", streetAddress: "", state: "", fein: "",
+    serviceType: "", yearsInBusiness: "", message: "", "bot-field": "",
   });
+  // Josh (site-manager note): "create sections for rental equipment including year, make,
+  // model, serial number, and value allow people to add multiple pieces of equipment".
+  // Netlify Forms has no array type, so the rows live in React state and are flattened on
+  // submit into (a) a serialised `equipment` block, (b) discrete first-item columns, and
+  // (c) `equipmentCount` — the same shape c10insurance.com uses for vehicles/VINs.
+  const [equipment, setEquipment] = useState<EquipmentRow[]>([blankEquipment()]);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -30,13 +49,30 @@ export default function QuotePage() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const updateEquipment = (i: number, field: keyof EquipmentRow, val: string) => {
+    setEquipment((rows) => rows.map((r, idx) => (idx === i ? { ...r, [field]: val } : r)));
+  };
+  const addEquipment = () => setEquipment((rows) => (rows.length >= MAX_EQUIPMENT ? rows : [...rows, blankEquipment()]));
+  const removeEquipment = (i: number) => setEquipment((rows) => (rows.length === 1 ? rows : rows.filter((_, idx) => idx !== i)));
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData["bot-field"]) return;
     setSubmitting(true);
     setError("");
+    const filled = equipment.filter((r) => r.year || r.make || r.model || r.serial || r.value);
+    const first = filled[0];
+    const equipmentFields = {
+      equipment: serialiseEquipment(equipment),
+      equipmentCount: String(filled.length),
+      equipmentYear: first?.year ?? "",
+      equipmentMake: first?.make ?? "",
+      equipmentModel: first?.model ?? "",
+      equipmentSerialNumber: first?.serial ?? "",
+      equipmentValue: first?.value ?? "",
+    };
     try {
-      await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "quote", source: SITE.domain, ...formData }) });
+      await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "quote", source: SITE.domain, ...formData, ...equipmentFields }) });
       setSubmitted(true);
     } catch {
       setError(COPY.quote.errorMessage);
@@ -112,13 +148,58 @@ export default function QuotePage() {
                         <div><label htmlFor="phone" className={labelClass}>Phone *</label><input id="phone" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder={COPY.quote.phonePlaceholder} className={inputClass} /></div>
                       </div>
 
+                      <div><label htmlFor="streetAddress" className={labelClass}>Business address *</label><input id="streetAddress" name="streetAddress" type="text" required value={formData.streetAddress} onChange={handleChange} placeholder="1234 W Main St, Phoenix, AZ 85001" className={inputClass} /></div>
+
                       <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN)</label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
                         <div><label htmlFor="state" className={labelClass}>Primary state *</label>
                           <select id="state" name="state" required value={formData.state} onChange={handleChange} className={inputClass}><option value="">Select a state…</option>{US_STATES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
                         </div>
-                        <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business</label>
-                          <select id="yearsInBusiness" name="yearsInBusiness" value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business</label>
+                        <select id="yearsInBusiness" name="yearsInBusiness" value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      <div className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
+                        <div>
+                          <p className="font-heading font-bold text-espresso text-sm">Rental equipment</p>
+                          <p className="text-xs text-mocha mt-0.5">List each piece you want covered. Add as many as you need.</p>
                         </div>
+
+                        {equipment.map((row, i) => (
+                          <div key={i} className="rounded-xl bg-white border border-adobe p-4 space-y-3">
+                            <div className="flex items-center justify-between">
+                              <p className="text-xs font-heading font-bold uppercase tracking-wider text-mocha">Item {i + 1}</p>
+                              {equipment.length > 1 && (
+                                <button type="button" onClick={() => removeEquipment(i)} className="text-xs font-heading font-semibold text-clay hover:text-espresso transition-colors">Remove</button>
+                              )}
+                            </div>
+                            <div className="grid sm:grid-cols-3 gap-3">
+                              <div><label htmlFor={`equipYear${i}`} className={labelClass}>Year</label><input id={`equipYear${i}`} type="text" inputMode="numeric" value={row.year} onChange={(e) => updateEquipment(i, "year", e.target.value)} placeholder="2021" className={inputClass} /></div>
+                              <div><label htmlFor={`equipMake${i}`} className={labelClass}>Make</label><input id={`equipMake${i}`} type="text" value={row.make} onChange={(e) => updateEquipment(i, "make", e.target.value)} placeholder="Bobcat" className={inputClass} /></div>
+                              <div><label htmlFor={`equipModel${i}`} className={labelClass}>Model</label><input id={`equipModel${i}`} type="text" value={row.model} onChange={(e) => updateEquipment(i, "model", e.target.value)} placeholder="S650" className={inputClass} /></div>
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-3">
+                              <div><label htmlFor={`equipSerial${i}`} className={labelClass}>Serial number</label><input id={`equipSerial${i}`} type="text" value={row.serial} onChange={(e) => updateEquipment(i, "serial", e.target.value)} placeholder="ALJ812345" className={inputClass} /></div>
+                              <div><label htmlFor={`equipValue${i}`} className={labelClass}>Value</label><input id={`equipValue${i}`} type="text" inputMode="numeric" value={row.value} onChange={(e) => updateEquipment(i, "value", e.target.value)} placeholder="$45,000" className={inputClass} /></div>
+                            </div>
+                          </div>
+                        ))}
+
+                        {equipment.length < MAX_EQUIPMENT && (
+                          <button type="button" onClick={addEquipment} className="w-full px-4 py-2.5 rounded-xl border border-dashed border-clay/60 text-clay font-heading font-semibold text-sm hover:bg-clay/5 transition-colors">+ Add another piece of equipment</button>
+                        )}
+
+                        {/* Netlify captures only declared, named fields — these mirrors carry the
+                            rows into the submission and are declared in public/__forms.html. */}
+                        <input type="hidden" name="equipment" value={serialiseEquipment(equipment)} readOnly />
+                        <input type="hidden" name="equipmentCount" value={String(equipment.filter((r) => r.year || r.make || r.model || r.serial || r.value).length)} readOnly />
+                        <input type="hidden" name="equipmentYear" value={equipment[0]?.year ?? ""} readOnly />
+                        <input type="hidden" name="equipmentMake" value={equipment[0]?.make ?? ""} readOnly />
+                        <input type="hidden" name="equipmentModel" value={equipment[0]?.model ?? ""} readOnly />
+                        <input type="hidden" name="equipmentSerialNumber" value={equipment[0]?.serial ?? ""} readOnly />
+                        <input type="hidden" name="equipmentValue" value={equipment[0]?.value ?? ""} readOnly />
                       </div>
 
                       <div><label htmlFor="serviceType" className={labelClass}>What do you need? *</label>
