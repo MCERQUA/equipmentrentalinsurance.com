@@ -7,7 +7,6 @@ import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { Process } from "@/components/sections/Process";
 import { CoverageMap } from "@/components/sections/CoverageMap";
 import { Stats } from "@/components/sections/Stats";
-import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
@@ -23,7 +22,6 @@ export default function HomePage() {
         <Process />
         <CoverageMap />
         <Stats />
-        <Testimonials />
         <FAQ />
         <FinalCTA />
       </main>

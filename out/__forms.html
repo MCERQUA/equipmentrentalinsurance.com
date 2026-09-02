@@ -1,0 +1,59 @@
+<!--
+  Static form definitions for Netlify form detection.
+  Netlify scans this file at build time to register the "quote" and "contact"
+  forms. The actual interactive forms live in /quote and /contact and post the
+  same field names. This file is not linked from the UI.
+-->
+<form name="quote" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="quote" />
+  <input type="text" name="name" />
+  <input type="text" name="businessName" />
+  <input type="email" name="email" />
+  <input type="tel" name="phone" />
+  <input type="text" name="streetAddress" />
+  <input type="text" name="city" />
+  <input type="text" name="state" />
+  <input type="text" name="zip" />
+  <input type="text" name="fein" />
+  <input type="text" name="equipment" />
+  <input type="text" name="equipmentCount" />
+  <input type="text" name="equipmentYear_1" />
+  <input type="text" name="equipmentMake_1" />
+  <input type="text" name="equipmentModel_1" />
+  <input type="text" name="equipmentSerialNumber_1" />
+  <input type="text" name="equipmentValue_1" />
+  <input type="text" name="equipmentYear_2" />
+  <input type="text" name="equipmentMake_2" />
+  <input type="text" name="equipmentModel_2" />
+  <input type="text" name="equipmentSerialNumber_2" />
+  <input type="text" name="equipmentValue_2" />
+  <input type="text" name="equipmentYear_3" />
+  <input type="text" name="equipmentMake_3" />
+  <input type="text" name="equipmentModel_3" />
+  <input type="text" name="equipmentSerialNumber_3" />
+  <input type="text" name="equipmentValue_3" />
+  <input type="text" name="equipmentYear_4" />
+  <input type="text" name="equipmentMake_4" />
+  <input type="text" name="equipmentModel_4" />
+  <input type="text" name="equipmentSerialNumber_4" />
+  <input type="text" name="equipmentValue_4" />
+  <input type="text" name="equipmentYear_5" />
+  <input type="text" name="equipmentMake_5" />
+  <input type="text" name="equipmentModel_5" />
+  <input type="text" name="equipmentSerialNumber_5" />
+  <input type="text" name="equipmentValue_5" />
+  <input type="text" name="serviceType" />
+  <input type="text" name="yearsInBusiness" />
+  <textarea name="message"></textarea>
+  <input name="bot-field" type="text" />
+</form>
+
+<form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="contact" />
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="tel" name="phone" />
+  <input type="text" name="subject" />
+  <textarea name="message"></textarea>
+  <input name="bot-field" type="text" />
+</form>

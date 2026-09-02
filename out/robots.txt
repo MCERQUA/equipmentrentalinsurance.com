@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://equipmentrentalinsurance.com
+Sitemap: https://equipmentrentalinsurance.com/sitemap.xml
