@@ -34,7 +34,7 @@ export default function BlogPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-12 md:pt-40 md:pb-16">
+        <section className="relative bg-warm-radial pt-32 pb-12 md:pt-40 md:pb-16 overflow-x-clip">
           <div className="container-tight text-center">
             <FadeIn>
               <span className="pill-clay">Blog & insights</span>
@@ -47,7 +47,7 @@ export default function BlogPage() {
           </div>
         </section>
 
-        <section className="bg-cream py-12 md:py-16">
+        <section className="bg-cream py-12 md:py-16 overflow-x-clip">
           <div className="container-wide">
             {posts.length === 0 ? (
               <p className="text-center text-mocha py-16">Articles coming soon.</p>

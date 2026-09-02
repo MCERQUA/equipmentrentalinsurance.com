@@ -36,7 +36,7 @@ export default function ServicesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20 overflow-x-clip">
           <div className="container-tight text-center">
             <FadeIn>
               <span className="pill-clay">Coverage lines</span>
@@ -49,7 +49,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        <section className="bg-cream py-16 md:py-20">
+        <section className="bg-cream py-16 md:py-20 overflow-x-clip">
           <div className="container-wide">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {SERVICES.map((s, i) => {

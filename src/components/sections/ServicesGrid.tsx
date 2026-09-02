@@ -15,7 +15,7 @@ const ICONS = {
 
 export function ServicesGrid() {
   return (
-    <section id="services" className="relative bg-sonoran py-20 md:py-28">
+    <section id="services" className="relative bg-sonoran py-20 md:py-28 overflow-x-clip">
       <div className="container-wide">
         <FadeIn className="max-w-3xl mb-12 md:mb-16">
           <span className="eyebrow"><span className="h-px w-8 bg-clay" />What we insure</span>

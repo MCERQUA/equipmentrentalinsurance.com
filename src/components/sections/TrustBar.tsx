@@ -8,7 +8,7 @@ const ICONS = { MapPin, CalendarCheck, HardHat, Timer, Zap, Award } as const;
 
 export function TrustBar() {
   return (
-    <section className="relative bg-white border-y border-adobe">
+    <section className="relative bg-white border-y border-adobe overflow-x-clip">
       <div className="container-wide py-6 md:py-8">
         <FadeIn>
           <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-5">

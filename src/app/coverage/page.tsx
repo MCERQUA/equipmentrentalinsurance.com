@@ -38,7 +38,7 @@ export default function CoveragePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20 overflow-x-clip">
           <div className="container-tight text-center">
             <FadeIn>
               <span className="pill-clay">Coverage Area</span>
@@ -51,7 +51,7 @@ export default function CoveragePage() {
           </div>
         </section>
 
-        <section className="bg-sonoran-sand py-16 md:py-20">
+        <section className="bg-sonoran-sand py-16 md:py-20 overflow-x-clip">
           <div className="container-tight">
             <FadeIn className="max-w-2xl mb-10">
               <span className="eyebrow"><span className="h-px w-8 bg-clay" />Where we write</span>
@@ -81,7 +81,7 @@ export default function CoveragePage() {
           </div>
         </section>
 
-        <section className="bg-cream py-16">
+        <section className="bg-cream py-16 overflow-x-clip">
           <div className="container-tight">
             <FadeIn>
               <div className="rounded-[2rem] bg-warm-radial border border-adobe p-8 md:p-12 text-center">

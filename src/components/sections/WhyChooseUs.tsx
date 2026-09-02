@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 
 export function WhyChooseUs() {
   return (
-    <section id="why" className="relative bg-sonoran-sand py-20 md:py-28">
+    <section id="why" className="relative bg-sonoran-sand py-20 md:py-28 overflow-x-clip">
       <div className="container-wide">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           <FadeIn className="lg:col-span-5 lg:sticky lg:top-28">

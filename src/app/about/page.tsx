@@ -34,7 +34,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20 overflow-x-clip">
           <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
             <FadeIn>
               <span className="pill-clay">About us</span>
@@ -56,7 +56,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-white border-y border-adobe">
+        <section className="bg-white border-y border-adobe overflow-x-clip">
           <div className="container-wide py-6">
             <FadeIn>
               <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
@@ -68,7 +68,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-cream py-16 md:py-24">
+        <section className="bg-cream py-16 md:py-24 overflow-x-clip">
           <div className="container-tight">
             <FadeIn className="max-w-2xl mb-12">
               <span className="eyebrow"><span className="h-px w-8 bg-clay" />{COPY.about.storyEyebrow}</span>
@@ -93,7 +93,7 @@ export default function AboutPage() {
 
         <Stats />
 
-        <section className="bg-sonoran-sand py-16 md:py-24">
+        <section className="bg-sonoran-sand py-16 md:py-24 overflow-x-clip">
           <div className="container-wide">
             <FadeIn className="max-w-2xl mb-12">
               <span className="eyebrow"><span className="h-px w-8 bg-clay" />What we stand for</span>

@@ -82,7 +82,7 @@ export default async function ServiceDetailPage({ params }: Props) {
       ))}
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20 overflow-x-clip">
           <div className="container-wide">
             <FadeIn>
               <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-heading font-semibold text-clay hover:gap-2.5 transition-all mb-6"><ArrowLeft className="h-4 w-4" />All coverage lines</Link>
@@ -112,7 +112,7 @@ export default async function ServiceDetailPage({ params }: Props) {
         </section>
 
         {detail && (
-          <section className="bg-cream py-16 md:py-24">
+          <section className="bg-cream py-16 md:py-24 overflow-x-clip">
             <div className="container-wide grid lg:grid-cols-3 gap-8 lg:gap-10">
               <FadeIn>
                 <div className="rounded-3xl bg-white border border-adobe shadow-card p-7 h-full">
@@ -138,7 +138,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
         <FAQ items={mergedFaqs} eyebrow={`${service.title} — FAQ`} title={<>Common questions about <span className="text-clay">{service.title.toLowerCase()}</span></>} background="sand" />
 
-        <section className="bg-cream py-16">
+        <section className="bg-cream py-16 overflow-x-clip">
           <div className="container-wide">
             <h2 className="font-heading font-bold text-2xl md:text-3xl text-espresso mb-8">Pair it with related coverage</h2>
             <div className="grid sm:grid-cols-3 gap-5">

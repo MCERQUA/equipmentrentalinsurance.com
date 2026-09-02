@@ -16,7 +16,7 @@ export function CTABand({
   description = COPY.ctaBand.defaultDescription,
 }: CTABandProps) {
   return (
-    <section className="relative bg-cream py-16 md:py-20">
+    <section className="relative bg-cream py-16 md:py-20 overflow-x-clip">
       <div className="container-tight">
         <FadeIn>
           <div className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-espresso px-7 py-12 md:p-14 text-center shadow-warm-lg">

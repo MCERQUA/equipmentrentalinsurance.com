@@ -8,7 +8,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 
 export function CoverageMap() {
   return (
-    <section id="coverage" className="relative bg-sonoran py-20 md:py-28">
+    <section id="coverage" className="relative bg-sonoran py-20 md:py-28 overflow-x-clip">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <FadeIn>

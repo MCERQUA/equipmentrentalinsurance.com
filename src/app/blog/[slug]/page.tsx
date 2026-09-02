@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }: Props) {
         </article>
 
         {more.length > 0 && (
-          <section className="bg-sonoran-sand py-16">
+          <section className="bg-sonoran-sand py-16 overflow-x-clip">
             <div className="container-wide">
               <h2 className="font-heading font-bold text-2xl md:text-3xl text-espresso mb-8">Keep reading</h2>
               <div className="grid md:grid-cols-3 gap-6">

@@ -94,7 +94,7 @@ export default function QuotePage() {
     <>
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-20 md:pt-40 md:pb-28">
+        <section className="relative bg-warm-radial pt-32 pb-20 md:pt-40 md:pb-28 overflow-x-clip">
           <div className="container-wide">
             <FadeIn className="text-center max-w-2xl mx-auto mb-12">
               <span className="pill-clay"><ShieldCheck className="h-3.5 w-3.5" /> Free quote</span>

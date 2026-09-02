@@ -7,7 +7,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="relative bg-cream py-20 md:py-28">
+    <section id="testimonials" className="relative bg-cream py-20 md:py-28 overflow-x-clip">
       <div className="container-wide">
         <FadeIn className="max-w-3xl mb-12 md:mb-16">
           <span className="eyebrow"><span className="h-px w-8 bg-clay" />{COPY.testimonials.eyebrow}</span>

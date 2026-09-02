@@ -48,7 +48,7 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20 overflow-x-clip">
           <div className="container-tight text-center">
             <FadeIn>
               <span className="pill-clay"><MessageCircle className="h-3.5 w-3.5" /> Contact</span>
@@ -61,7 +61,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="bg-cream py-16 md:py-20">
+        <section className="bg-cream py-16 md:py-20 overflow-x-clip">
           <div className="container-wide grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <FadeIn>
               <div className="grid sm:grid-cols-1 gap-4 mb-8">

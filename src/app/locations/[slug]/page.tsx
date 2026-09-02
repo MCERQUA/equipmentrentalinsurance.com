@@ -68,7 +68,7 @@ export default async function LocationPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main>
-        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="relative bg-warm-radial pt-32 pb-16 md:pt-40 md:pb-20 overflow-x-clip">
           <div className="container-wide">
             <FadeIn>
               <Link href="/coverage" className="inline-flex items-center gap-1.5 text-sm font-heading font-semibold text-clay hover:gap-2.5 transition-all mb-6"><ArrowLeft className="h-4 w-4" />Coverage area</Link>
@@ -96,7 +96,7 @@ export default async function LocationPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="bg-cream py-16 md:py-20">
+        <section className="bg-cream py-16 md:py-20 overflow-x-clip">
           <div className="container-tight">
             <FadeIn className="max-w-2xl mb-10">
               <span className="eyebrow"><span className="h-px w-8 bg-clay" />Coverage for {loc.name} rental yards</span>
