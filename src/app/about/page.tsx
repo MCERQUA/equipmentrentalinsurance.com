@@ -49,7 +49,7 @@ export default function AboutPage() {
               </div>
             </FadeIn>
             <FadeIn direction="left">
-              <div className="rounded-t-[12rem] rounded-b-3xl overflow-hidden border-4 border-white shadow-warm-lg">
+              <div className="rounded-t-[12rem] rounded-b-3xl overflow-hidden border-4 border-white shadow-warm-lg min-w-0 max-w-full">
                 <img src="/images/about.jpg" alt={COPY.about.imageAlt} className="w-full h-[360px] md:h-[440px] object-cover" loading="lazy" />
               </div>
             </FadeIn>
