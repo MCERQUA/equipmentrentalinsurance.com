@@ -6,6 +6,7 @@ import { Footer } from "@/components/sections/Footer";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { SITE } from "@/lib/site";
 import { COPY } from "@/lib/content";
+import { postToNetlify } from "@/lib/netlifyForms";
 import { CheckCircle2, ArrowRight, Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 
 const WEBHOOK_URL = `https://josh.jam-bot.com/social-api/api/leads/webhook/netlify?tenant=josh&site=${SITE.domain}`;
@@ -29,6 +30,9 @@ export default function ContactPage() {
       const res = await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "contact", source: SITE.domain, ...formData }) });
       // fetch() resolves on a 4xx/5xx, so the status is what says the lead was taken.
       if (!res.ok) throw new Error(String(res.status));
+      // Same fields to Netlify so submission_created fires and Josh's email hook sends.
+      // Best-effort and after the authoritative call, so it can never fail a taken lead.
+      await postToNetlify("contact", formData);
       setSubmitted(true);
     } catch {
       setError(COPY.contact.errorMessage);
@@ -99,15 +103,16 @@ export default function ContactPage() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div><label htmlFor="name" className={labelClass}>Name *</label><input id="name" name="name" type="text" required value={formData.name} onChange={handleChange} placeholder="Jane Smith" className={inputClass} /></div>
-                    <div><label htmlFor="phone" className={labelClass}>Phone</label><input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="(608) 555-0100" className={inputClass} /></div>
+                    <div><label htmlFor="phone" className={labelClass}>Phone *</label><input id="phone" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder="(608) 555-0100" className={inputClass} /></div>
                   </div>
 
                   <div><label htmlFor="email" className={labelClass}>Email *</label><input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder={COPY.quote.emailPlaceholder} className={inputClass} /></div>
-                  <div><label htmlFor="subject" className={labelClass}>Subject</label><input id="subject" name="subject" type="text" value={formData.subject} onChange={handleChange} placeholder="How can we help?" className={inputClass} /></div>
-                  <div><label htmlFor="message" className={labelClass}>Message *</label><textarea id="message" name="message" rows={5} required value={formData.message} onChange={handleChange} placeholder="Tell us about your operation or question…" className={`${inputClass} resize-none`} /></div>
+                  <div><label htmlFor="subject" className={labelClass}>Subject *</label><input id="subject" name="subject" type="text" required value={formData.subject} onChange={handleChange} placeholder="How can we help?" className={inputClass} /></div>
+                  <div><label htmlFor="message" className={labelClass}>Message *</label><textarea id="message" name="message" rows={5} required value={formData.message} onChange={handleChange} placeholder="Tell us about your operation or question — including the equipment involved and any relevant dates." className={`${inputClass} resize-none`} /></div>
 
                   {error && <p className="text-red-600 text-sm font-medium">{error}</p>}
 
+                  <p className="text-sm text-center text-espresso font-heading font-semibold">Please complete all required fields so we can prepare an accurate quote.</p>
                   <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-clay-gradient text-white font-heading font-bold rounded-full shadow-warm hover:shadow-warm-lg hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
                     {submitting ? "Sending…" : "Send message"}{!submitting && <ArrowRight className="h-5 w-5" />}
                   </button>

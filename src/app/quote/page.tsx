@@ -7,6 +7,7 @@ import { Footer } from "@/components/sections/Footer";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { SITE } from "@/lib/site";
 import { US_STATES, QUOTE_SERVICE_TYPES, YEARS_OPTIONS, COPY } from "@/lib/content";
+import { postToNetlify } from "@/lib/netlifyForms";
 import { CheckCircle2, ShieldCheck, ArrowRight, Phone, Clock, Zap, MapPin } from "lucide-react";
 
 const WEBHOOK_URL = `https://josh.jam-bot.com/social-api/api/leads/webhook/netlify?tenant=josh&site=${SITE.domain}`;
@@ -81,6 +82,9 @@ export default function QuotePage() {
       const res = await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "quote", source: SITE.domain, ...formData, ...equipmentFields }) });
       // fetch() resolves on a 4xx/5xx, so the status is what says the lead was taken.
       if (!res.ok) throw new Error(String(res.status));
+      // Same fields to Netlify so submission_created fires and Josh's email hook sends.
+      // Best-effort and after the authoritative call, so it can never fail a taken lead.
+      await postToNetlify("quote", { ...formData, ...equipmentFields });
       setSubmitted(true);
     } catch {
       setError(COPY.quote.errorMessage);
@@ -166,16 +170,16 @@ export default function QuotePage() {
                         <div><label htmlFor="zip" className={labelClass}>ZIP code *</label><input id="zip" name="zip" type="text" inputMode="numeric" required value={formData.zip} onChange={handleChange} placeholder="85001" className={inputClass} /></div>
                       </div>
 
-                      <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN)</label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
+                      <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN) <span className="text-mocha/60 font-normal">(optional)</span></label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
 
-                      <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business</label>
-                        <select id="yearsInBusiness" name="yearsInBusiness" value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business *</label>
+                        <select id="yearsInBusiness" name="yearsInBusiness" required value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
                       </div>
 
                       <div className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
                         <div>
                           <p className="font-heading font-bold text-espresso text-sm">Rental equipment</p>
-                          <p className="text-xs text-mocha mt-0.5">List each piece you want covered. Add as many as you need.</p>
+                          <p className="text-xs text-mocha mt-0.5">List each piece you want covered. Add as many as you need. The first item is required — without year, make, model and value we cannot rate the equipment.</p>
                         </div>
 
                         {equipment.map((row, i) => (
@@ -187,13 +191,13 @@ export default function QuotePage() {
                               )}
                             </div>
                             <div className="grid sm:grid-cols-3 gap-3">
-                              <div><label htmlFor={`equipmentYear_${i + 1}`} className={labelClass}>Year</label><input id={`equipmentYear_${i + 1}`} name={`equipmentYear_${i + 1}`} type="text" inputMode="numeric" value={row.year} onChange={(e) => updateEquipment(i, "year", e.target.value)} placeholder="2021" className={inputClass} /></div>
-                              <div><label htmlFor={`equipmentMake_${i + 1}`} className={labelClass}>Make</label><input id={`equipmentMake_${i + 1}`} name={`equipmentMake_${i + 1}`} type="text" value={row.make} onChange={(e) => updateEquipment(i, "make", e.target.value)} placeholder="Bobcat" className={inputClass} /></div>
-                              <div><label htmlFor={`equipmentModel_${i + 1}`} className={labelClass}>Model</label><input id={`equipmentModel_${i + 1}`} name={`equipmentModel_${i + 1}`} type="text" value={row.model} onChange={(e) => updateEquipment(i, "model", e.target.value)} placeholder="S650" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentYear_${i + 1}`} className={labelClass}>Year{i === 0 && " *"}</label><input id={`equipmentYear_${i + 1}`} name={`equipmentYear_${i + 1}`} type="text" inputMode="numeric" required={i === 0} value={row.year} onChange={(e) => updateEquipment(i, "year", e.target.value)} placeholder="2021" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentMake_${i + 1}`} className={labelClass}>Make{i === 0 && " *"}</label><input id={`equipmentMake_${i + 1}`} name={`equipmentMake_${i + 1}`} type="text" required={i === 0} value={row.make} onChange={(e) => updateEquipment(i, "make", e.target.value)} placeholder="Bobcat" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentModel_${i + 1}`} className={labelClass}>Model{i === 0 && " *"}</label><input id={`equipmentModel_${i + 1}`} name={`equipmentModel_${i + 1}`} type="text" required={i === 0} value={row.model} onChange={(e) => updateEquipment(i, "model", e.target.value)} placeholder="S650" className={inputClass} /></div>
                             </div>
                             <div className="grid sm:grid-cols-2 gap-3">
-                              <div><label htmlFor={`equipmentSerialNumber_${i + 1}`} className={labelClass}>Serial number</label><input id={`equipmentSerialNumber_${i + 1}`} name={`equipmentSerialNumber_${i + 1}`} type="text" value={row.serial} onChange={(e) => updateEquipment(i, "serial", e.target.value)} placeholder="ALJ812345" className={inputClass} /></div>
-                              <div><label htmlFor={`equipmentValue_${i + 1}`} className={labelClass}>Value</label><input id={`equipmentValue_${i + 1}`} name={`equipmentValue_${i + 1}`} type="text" inputMode="numeric" value={row.value} onChange={(e) => updateEquipment(i, "value", e.target.value)} placeholder="$45,000" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentSerialNumber_${i + 1}`} className={labelClass}>Serial number <span className="text-mocha/60 font-normal">(optional)</span></label><input id={`equipmentSerialNumber_${i + 1}`} name={`equipmentSerialNumber_${i + 1}`} type="text" value={row.serial} onChange={(e) => updateEquipment(i, "serial", e.target.value)} placeholder="ALJ812345" className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentValue_${i + 1}`} className={labelClass}>Value{i === 0 && " *"}</label><input id={`equipmentValue_${i + 1}`} name={`equipmentValue_${i + 1}`} type="text" inputMode="numeric" required={i === 0} value={row.value} onChange={(e) => updateEquipment(i, "value", e.target.value)} placeholder="$45,000" className={inputClass} /></div>
                             </div>
                           </div>
                         ))}
@@ -223,12 +227,13 @@ export default function QuotePage() {
                       </div>
 
                       <div>
-                        <label htmlFor="message" className={labelClass}>Tell us about your operation <span className="text-mocha/60 font-normal">(optional)</span></label>
-                        <textarea id="message" name="message" rows={4} value={formData.message} onChange={handleChange} placeholder={COPY.quote.messagePlaceholder} className={`${inputClass} resize-none`} />
+                        <label htmlFor="message" className={labelClass}>Project details and rental dates *</label>
+                        <textarea id="message" name="message" rows={4} required value={formData.message} onChange={handleChange} placeholder="What is the equipment being used for, where, and over what dates? Include the rental start and end dates if you have them." className={`${inputClass} resize-none`} />
                       </div>
 
                       {error && <p className="text-red-600 text-sm font-medium">{error}</p>}
 
+                      <p className="text-sm text-center text-espresso font-heading font-semibold">Please complete all required fields so we can prepare an accurate quote.</p>
                       <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-clay-gradient text-white font-heading font-bold rounded-full shadow-warm hover:shadow-warm-lg hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
                         {submitting ? "Sending…" : "Request my free quote"}{!submitting && <ArrowRight className="h-5 w-5" />}
                       </button>
