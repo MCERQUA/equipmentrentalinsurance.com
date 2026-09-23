@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headingFont, bodyFont } from "@/lib/fonts";
 import { SmoothScroll } from "@/components/animations/SmoothScroll";
+import { QuotePopup, FloatingQuoteBar } from "@/components/QuotePopup";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -56,7 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: SITE.name,
     description: SITE.description,
     url: SITE.url,
-    telephone: "+18449675247",
     email: SITE.email,
     image: `${SITE.url}/images/og-image.jpg`,
     logo: `${SITE.url}/images/og-image.jpg`,
@@ -89,6 +89,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased">
         <SmoothScroll>{children}</SmoothScroll>
+        <QuotePopup />
+        <FloatingQuoteBar />
       </body>
     </html>
   );

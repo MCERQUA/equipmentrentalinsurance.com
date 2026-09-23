@@ -1,6 +1,6 @@
 # Equipment Rental Insurance
 
-> Equipment Rental Insurance (by Contractors Choice Agency) provides specialized commercial insurance for equipment rental companies in all 50 states. Coverage lines: inland marine / equipment floater (the defining rental risk — follows your fleet to customer job sites), rented-to-others coverage (your equipment in customers' hands), equipment breakdown (mechanical & electrical failures a floater excludes), general liability for equipment rental companies, commercial auto for delivery fleets (trucks, flatbeds, lowboys, trailers), workers' compensation for rental businesses (yard crews, drivers, mechanics), and commercial umbrella. Covers companies renting skid steers, excavators, boom and scissor lifts, trailers, tools, and party/event rentals. A-rated carriers. 15-minute quotes, 2-hour claims response. Licensed in all 50 states — NPN #8608479. Founded 2005. Contact: 844-967-5247, josh@contractorschoiceagency.com.
+> Equipment Rental Insurance (by Contractors Choice Agency) provides specialized commercial insurance for equipment rental companies in all 50 states. Coverage lines: inland marine / equipment floater (the defining rental risk — follows your fleet to customer job sites), rented-to-others coverage (your equipment in customers' hands), equipment breakdown (mechanical & electrical failures a floater excludes), general liability for equipment rental companies, commercial auto for delivery fleets (trucks, flatbeds, lowboys, trailers), workers' compensation for rental businesses (yard crews, drivers, mechanics), and commercial umbrella. Covers companies renting skid steers, excavators, boom and scissor lifts, trailers, tools, and party/event rentals. A-rated carriers. 15-minute quotes, 2-hour claims response. Licensed in all 50 states — NPN #8608479. Founded 2005. Contact: josh@contractorschoiceagency.com.
 
 ## Core pages
 
@@ -9,7 +9,7 @@
 - [Coverage Area](/coverage): National equipment rental insurance — all 50 states.
 - [Get a Quote](/quote): 15-minute quote request form.
 - [About](/about): Contractors Choice Agency and the equipment rental division.
-- [Contact](/contact): Phone, email, and contact form.
+- [Contact](/contact): Email and contact form.
 - [Blog](/blog): Equipment rental insurance guides and insights.
 
 ## Coverage lines (service pages)

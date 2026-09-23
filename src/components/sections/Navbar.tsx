@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Container } from "lucide-react";
+import { Menu, X, Container } from "lucide-react";
 import { NAV_LINKS, SITE, BRAND } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -52,10 +52,6 @@ export function Navbar() {
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
-          <a href={SITE.phoneHref} className="inline-flex items-center gap-2 text-sm font-heading font-bold text-espresso hover:text-clay transition-colors">
-            <Phone className="h-4 w-4" />
-            {SITE.phone}
-          </a>
           <Link href="/quote" className="btn-primary !py-2.5 !px-6 text-sm">Get a Quote</Link>
         </div>
 
@@ -72,7 +68,6 @@ export function Navbar() {
             </Link>
           ))}
           <div className="mt-4 flex flex-col gap-3">
-            <a href={SITE.phoneHref} className="btn-secondary w-full"><Phone className="h-4 w-4" />{SITE.phone}</a>
             <Link href="/quote" onClick={() => setOpen(false)} className="btn-primary w-full">Get a Free Quote</Link>
           </div>
         </div>

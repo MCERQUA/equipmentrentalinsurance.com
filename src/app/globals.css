@@ -187,3 +187,16 @@
 ::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 6px; border: 2px solid var(--bg-sand); }
 ::-webkit-scrollbar-thumb:hover { background: var(--clay-dark); }
 :focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; border-radius: 4px; }
+
+/* Floating quote bar — reserve room so page content and the existing floating
+   contact affordances never sit underneath it. Height is measured at runtime
+   (see FloatingQuoteBar) because the bar wraps to a taller layout on mobile. */
+body.qp-bar-active {
+  padding-bottom: calc(var(--qp-bar-height, 60px) + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* So scrollIntoView()/anchor/focus scrolling never parks a mid-page element
+   (e.g. a form's submit button) directly under the fixed bar. */
+html {
+  scroll-padding-bottom: calc(var(--qp-bar-height, 0px) + env(safe-area-inset-bottom, 0px) + 16px);
+}

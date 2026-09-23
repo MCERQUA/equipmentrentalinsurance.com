@@ -143,7 +143,7 @@ export const COPY = {
     phonePlaceholder: "(602) 555-0100",
     messagePlaceholder:
       "Fleet list (equipment types, makes, models, years, values), number of rental units, annual rental revenue, employee count and payroll, delivery radius, equipment categories rented, current insurer, loss history, or anything else that helps us quote accurately…",
-    errorMessage: "Something went wrong. Please call us at 844-967-5247 or try again.",
+    errorMessage: "Something went wrong. Please try again in a moment.",
     trustNicheTitle: "Built for rental yards",
     trustNicheDesc: "Policies written for equipment rental companies — not generic business-owner coverage.",
   },
@@ -151,7 +151,7 @@ export const COPY = {
     h1Lead: "Let's talk about your",
     h1Highlight: "rental coverage",
     lead: "Questions, a quote, or a claim — reach a person who knows equipment rental, not a queue.",
-    errorMessage: "Something went wrong. Please call us at 844-967-5247.",
+    errorMessage: "Something went wrong. Please try again in a moment.",
   },
   coveragePage: {
     metaTitle: "Equipment Rental Insurance — National Coverage, All 50 States",

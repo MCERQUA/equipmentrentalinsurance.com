@@ -93,7 +93,6 @@ export default async function BlogPostPage({ params }: Props) {
                 <p className="text-cream/75 mt-2 text-sm">Get a real quote in about 15 minutes — we shop A-rated specialty rental markets.</p>
                 <div className="mt-5 flex flex-col sm:flex-row gap-3">
                   <Link href="/quote" className="btn-primary">Get a quote</Link>
-                  <a href={SITE.phoneHref} className="btn-secondary !text-cream !border-white/20 !bg-white/10 hover:!bg-white/20">{SITE.phone}</a>
                 </div>
               </div>
             </FadeIn>

@@ -7,7 +7,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { SITE } from "@/lib/site";
 import { COPY } from "@/lib/content";
 import { postToNetlify } from "@/lib/netlifyForms";
-import { CheckCircle2, ArrowRight, Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { CheckCircle2, ArrowRight, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 
 const WEBHOOK_URL = `https://josh.jam-bot.com/social-api/api/leads/webhook/netlify?tenant=josh&site=${SITE.domain}`;
 
@@ -45,7 +45,6 @@ export default function ContactPage() {
   const labelClass = "block text-sm font-heading font-semibold text-espresso mb-1.5";
 
   const contactCards = [
-    { icon: Phone, label: "Call us", value: SITE.phone, href: SITE.phoneHref, sub: SITE.hours },
     { icon: Mail, label: "Email us", value: SITE.email, href: `mailto:${SITE.email}`, sub: "Replies within one business day" },
     { icon: MessageCircle, label: "Get a quote", value: "Start online", href: "/quote", sub: "~15-minute quote turnaround" },
   ];

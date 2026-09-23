@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Phone, ShieldCheck, Star, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, Star, CheckCircle2 } from "lucide-react";
 import { SITE, BRAND } from "@/lib/site";
 import { COPY } from "@/lib/content";
 
@@ -35,7 +35,6 @@ export function Hero() {
 
             <motion.div {...item} className="mt-8 flex flex-col sm:flex-row gap-3">
               <Link href="/quote" className="btn-primary text-base">Get a Free Quote<ArrowRight className="h-5 w-5" /></Link>
-              <a href={SITE.phoneHref} className="btn-secondary text-base"><Phone className="h-5 w-5" />{SITE.phone}</a>
             </motion.div>
 
             <motion.div {...item} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-mocha">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Clock, Container, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Clock, Container, ShieldCheck } from "lucide-react";
 import { SITE, SERVICES, LOCATIONS, BRAND } from "@/lib/site";
 import { COPY } from "@/lib/content";
 
@@ -16,7 +16,6 @@ export function Footer() {
             <p className="text-cream/70 mt-1">{COPY.footer.ctaSubcopy}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
-            <a href={SITE.phoneHref} className="btn-secondary !bg-white/10 !border-white/20 !text-cream hover:!bg-white/20 hover:!text-white"><Phone className="h-4 w-4" />{SITE.phone}</a>
             <Link href="/quote" className="btn-primary">Get a Free Quote</Link>
           </div>
         </div>
@@ -57,7 +56,6 @@ export function Footer() {
         <div>
           <p className="font-heading font-bold text-cream mb-4 text-sm uppercase tracking-wider">Contact</p>
           <ul className="space-y-3.5 text-sm">
-            <li><a href={SITE.phoneHref} className="flex items-start gap-2.5 text-cream/80 hover:text-gold transition-colors"><Phone className="h-4 w-4 mt-0.5 text-gold flex-shrink-0" /><span><span className="block font-semibold text-cream">{SITE.phone}</span><span className="text-xs text-cream/60">Toll-free</span></span></a></li>
             <li><a href={`mailto:${SITE.email}`} className="flex items-start gap-2.5 text-cream/80 hover:text-gold transition-colors"><Mail className="h-4 w-4 mt-0.5 text-gold flex-shrink-0" /><span className="break-all">{SITE.email}</span></a></li>
             <li className="flex items-start gap-2.5 text-cream/80"><MapPin className="h-4 w-4 mt-0.5 text-gold flex-shrink-0" /><span>{SITE.address.street}<br />{SITE.address.city}, {SITE.address.state} {SITE.address.zip}</span></li>
             <li className="flex items-start gap-2.5 text-cream/80"><Clock className="h-4 w-4 mt-0.5 text-gold flex-shrink-0" /><span>{SITE.hours}<br /><span className="text-xs text-cream/60">24/7 claims hotline</span></span></li>
