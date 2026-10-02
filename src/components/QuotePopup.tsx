@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
-import { SITE } from "@/lib/site";
 
 const DISMISS_KEY = "qp-popup-dismissed";
 const POPUP_DELAY_MS = 4000;
@@ -32,9 +31,6 @@ export function FloatingQuoteBar() {
         <Link href="/quote" className="text-cream text-sm font-heading font-bold underline decoration-cream/50 hover:decoration-gold hover:text-gold transition-colors" style={{ pointerEvents: "auto" }}>
           Click here to request a quote
         </Link>
-        <a href={SITE.phoneHref} className="text-cream/80 text-sm hover:text-gold transition-colors whitespace-nowrap" style={{ pointerEvents: "auto" }}>
-          Office: <span className="font-heading font-bold text-gold">{SITE.phone}</span>
-        </a>
       </div>
     </div>
   );
@@ -124,14 +120,8 @@ export function QuotePopup() {
           <p className="text-sm text-espresso leading-relaxed mb-4">
             Submitting your information online lets our agents put together your quote correctly the first time.
           </p>
-          <p className="text-sm text-espresso leading-relaxed mb-3">
-            Please submit whatever you can — every detail you give us saves both of us time.
-          </p>
           <p className="text-sm text-espresso leading-relaxed mb-6">
-            If you&apos;d prefer to speak with someone please call us at{" "}
-            <a href={SITE.phoneHref} className="font-heading font-bold text-clay whitespace-nowrap">
-              {SITE.phone}
-            </a>
+            Please submit whatever you can — every detail you give us saves both of us time.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
