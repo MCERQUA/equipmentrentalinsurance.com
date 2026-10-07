@@ -112,16 +112,31 @@ export function QuotePopup() {
           </button>
           <p className="text-xs font-heading font-bold uppercase tracking-widest text-gold mb-1">A note from our team</p>
           <h2 id="qp-popup-title" className="font-heading font-extrabold text-cream text-xl leading-snug pr-6">
-            Get your equipment rental insurance quote
+            Thank you for visiting our site! Let&apos;s Get Your Quote Started!!
           </h2>
         </div>
 
         <div className="px-6 py-6">
-          <p className="text-sm text-espresso leading-relaxed mb-4">
-            Submitting your information online lets our agents put together your quote correctly the first time.
+          <p className="text-sm text-espresso leading-relaxed mb-3">
+            Our agents are actively working on quotes and helping customers find the right coverage.
           </p>
-          <p className="text-sm text-espresso leading-relaxed mb-6">
-            Please submit whatever you can — every detail you give us saves both of us time.
+          <p className="text-sm text-espresso leading-relaxed mb-3">
+            The fastest way to get started is to submit your information online. Our technology helps organize the details you provide so our agents can spend more time reviewing your needs, comparing options, and preparing your quote.
+          </p>
+          <p className="text-sm text-espresso leading-relaxed mb-3">
+            Don&apos;t worry if you don&apos;t have all the answers.
+          </p>
+          <p className="text-sm text-espresso leading-relaxed mb-3">
+            Just fill out what you can. Even partial information helps us get started, and one of our agents will follow up if we need anything else.
+          </p>
+          <p className="text-sm text-espresso leading-relaxed mb-1">
+            Prefer to speak with someone?
+          </p>
+          <p className="text-sm text-espresso leading-relaxed mb-3">
+            Give us a call at 844-967-5247. We&apos;re happy to help.
+          </p>
+          <p className="text-sm text-espresso leading-relaxed font-bold mb-6">
+            Submit what you know, and we&apos;ll take it from there.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -129,7 +144,7 @@ export function QuotePopup() {
               Get My Quote
             </Link>
             <button onClick={dismiss} className="flex-1 btn-secondary">
-              Not now
+              Browse Site for More Information
             </button>
           </div>
         </div>
