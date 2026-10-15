@@ -129,12 +129,6 @@ export function QuotePopup() {
           <p className="text-sm text-espresso leading-relaxed mb-3">
             Just fill out what you can. Even partial information helps us get started, and one of our agents will follow up if we need anything else.
           </p>
-          <p className="text-sm text-espresso leading-relaxed mb-1">
-            Prefer to speak with someone?
-          </p>
-          <p className="text-sm text-espresso leading-relaxed mb-3">
-            Give us a call at 844-967-5247. We&apos;re happy to help.
-          </p>
           <p className="text-sm text-espresso leading-relaxed font-bold mb-6">
             Submit what you know, and we&apos;ll take it from there.
           </p>
