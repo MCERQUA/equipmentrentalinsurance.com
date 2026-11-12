@@ -303,6 +303,29 @@ export const YEARS_OPTIONS = [
   "10+ years",
 ];
 
+// ACORD-125 "Business entity" (applicant-answerable) — added to close the
+// equipmentrentalinsurance.com ACORD-core-web-spec gap audit, 2026-11-12.
+export const ENTITY_TYPES = [
+  "Individual / Sole proprietorship",
+  "Partnership",
+  "Corporation",
+  "LLC",
+  "Joint venture",
+  "Other",
+];
+
+// Equipment-rental-specific class of business (ACORD-125 "Nature of business" / tradeType).
+export const EQUIPMENT_RENTAL_TRADE_TYPES = [
+  "Construction & heavy equipment rental",
+  "Tool & small equipment rental",
+  "Party / event equipment rental",
+  "Trailer / towable rental",
+  "Aerial lift / scaffolding rental",
+  "Specialty / other equipment rental",
+];
+
+export const YES_NO_OPTIONS = ["Yes", "No"];
+
 /* ============================================================
    FAQ helpers — used by location/service/coverage pages to pad to 20.
    ============================================================ */

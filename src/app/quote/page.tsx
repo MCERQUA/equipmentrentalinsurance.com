@@ -6,7 +6,15 @@ import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { SITE } from "@/lib/site";
-import { US_STATES, QUOTE_SERVICE_TYPES, YEARS_OPTIONS, COPY } from "@/lib/content";
+import {
+  US_STATES,
+  QUOTE_SERVICE_TYPES,
+  YEARS_OPTIONS,
+  ENTITY_TYPES,
+  EQUIPMENT_RENTAL_TRADE_TYPES,
+  YES_NO_OPTIONS,
+  COPY,
+} from "@/lib/content";
 import { postToNetlify } from "@/lib/netlifyForms";
 import { CheckCircle2, ShieldCheck, ArrowRight, Clock, Zap, MapPin } from "lucide-react";
 
@@ -35,7 +43,10 @@ export default function QuotePage() {
   const [formData, setFormData] = useState({
     name: "", businessName: "", email: "", phone: "",
     streetAddress: "", city: "", state: "", zip: "", fein: "",
-    serviceType: "", yearsInBusiness: "", message: "", "bot-field": "",
+    entityType: "", tradeType: "", businessDescription: "", statesOfOperation: "",
+    usesSubcontractors: "", annualRevenue: "", fullTimeEmployees: "",
+    currentlyInsured: "", lossesLast3Years: "", desiredEffectiveDate: "",
+    coverageTypes: "", yearsInBusiness: "", message: "", "bot-field": "",
   });
   // Josh (site-manager note): "create sections for rental equipment including year, make,
   // model, serial number, and value allow people to add multiple pieces of equipment".
@@ -148,6 +159,15 @@ export default function QuotePage() {
                       </div>
 
                       <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="entityType" className={labelClass}>Business entity *</label>
+                          <select id="entityType" name="entityType" required value={formData.entityType} onChange={handleChange} className={inputClass}><option value="">Select…</option>{ENTITY_TYPES.map((t) => (<option key={t} value={t}>{t}</option>))}</select>
+                        </div>
+                        <div><label htmlFor="tradeType" className={labelClass}>What type of equipment rental business is this? *</label>
+                          <select id="tradeType" name="tradeType" required value={formData.tradeType} onChange={handleChange} className={inputClass}><option value="">Select…</option>{EQUIPMENT_RENTAL_TRADE_TYPES.map((t) => (<option key={t} value={t}>{t}</option>))}</select>
+                        </div>
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
                         <div><label htmlFor="email" className={labelClass}>Email *</label><input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder={COPY.quote.emailPlaceholder} className={inputClass} /></div>
                         <div><label htmlFor="phone" className={labelClass}>Phone *</label><input id="phone" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder={COPY.quote.phonePlaceholder} className={inputClass} /></div>
                       </div>
@@ -162,10 +182,25 @@ export default function QuotePage() {
                         <div><label htmlFor="zip" className={labelClass}>ZIP code *</label><input id="zip" name="zip" type="text" inputMode="numeric" required value={formData.zip} onChange={handleChange} placeholder="85001" className={inputClass} /></div>
                       </div>
 
+                      <div><label htmlFor="statesOfOperation" className={labelClass}>States where you operate / rent out equipment *</label><input id="statesOfOperation" name="statesOfOperation" type="text" required value={formData.statesOfOperation} onChange={handleChange} placeholder="e.g. Arizona, Nevada (or 'same as above')" className={inputClass} /></div>
+
                       <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN) <span className="text-mocha/60 font-normal">(optional)</span></label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
+
+                      <div><label htmlFor="businessDescription" className={labelClass}>Describe your rental operations *</label>
+                        <textarea id="businessDescription" name="businessDescription" rows={3} required value={formData.businessDescription} onChange={handleChange} placeholder="What do you rent out, to whom (homeowners, contractors, event planners), and do you deliver, operate, or staff the equipment?" className={`${inputClass} resize-none`} />
+                      </div>
 
                       <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business *</label>
                         <select id="yearsInBusiness" name="yearsInBusiness" required value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="annualRevenue" className={labelClass}>Annual revenue (estimate) *</label><input id="annualRevenue" name="annualRevenue" type="text" inputMode="numeric" required value={formData.annualRevenue} onChange={handleChange} placeholder="$500,000" className={inputClass} /></div>
+                        <div><label htmlFor="fullTimeEmployees" className={labelClass}>Full-time employees *</label><input id="fullTimeEmployees" name="fullTimeEmployees" type="text" inputMode="numeric" required value={formData.fullTimeEmployees} onChange={handleChange} placeholder="4" className={inputClass} /></div>
+                      </div>
+
+                      <div><label htmlFor="usesSubcontractors" className={labelClass}>Do you use subcontractors (delivery, setup, maintenance, operators)? *</label>
+                        <select id="usesSubcontractors" name="usesSubcontractors" required value={formData.usesSubcontractors} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
                       </div>
 
                       <div className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
@@ -214,9 +249,20 @@ export default function QuotePage() {
                         <input type="hidden" name="equipmentCount" value={String(equipment.filter((r) => r.year || r.make || r.model || r.serial || r.value).length)} readOnly />
                       </div>
 
-                      <div><label htmlFor="serviceType" className={labelClass}>What do you need? *</label>
-                        <select id="serviceType" name="serviceType" required value={formData.serviceType} onChange={handleChange} className={inputClass}><option value="">Select coverage…</option>{QUOTE_SERVICE_TYPES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="currentlyInsured" className={labelClass}>Currently insured? *</label>
+                          <select id="currentlyInsured" name="currentlyInsured" required value={formData.currentlyInsured} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                        </div>
+                        <div><label htmlFor="lossesLast3Years" className={labelClass}>Any claims or losses in the last 3 years? *</label>
+                          <select id="lossesLast3Years" name="lossesLast3Years" required value={formData.lossesLast3Years} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                        </div>
                       </div>
+
+                      <div><label htmlFor="coverageTypes" className={labelClass}>What do you need? *</label>
+                        <select id="coverageTypes" name="coverageTypes" required value={formData.coverageTypes} onChange={handleChange} className={inputClass}><option value="">Select coverage…</option>{QUOTE_SERVICE_TYPES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
+                      </div>
+
+                      <div><label htmlFor="desiredEffectiveDate" className={labelClass}>When do you need coverage to start? *</label><input id="desiredEffectiveDate" name="desiredEffectiveDate" type="date" required value={formData.desiredEffectiveDate} onChange={handleChange} className={inputClass} /></div>
 
                       <div>
                         <label htmlFor="message" className={labelClass}>Project details and rental dates *</label>
