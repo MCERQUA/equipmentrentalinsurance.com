@@ -326,6 +326,14 @@ export const EQUIPMENT_RENTAL_TRADE_TYPES = [
 
 export const YES_NO_OPTIONS = ["Yes", "No"];
 
+// Who maintains/inspects the rented equipment (ACORD-core-web-spec gap audit, 2026-11-13).
+export const MAINTENANCE_RESPONSIBILITY_OPTIONS = [
+  "In-house staff",
+  "Renter / customer",
+  "Third-party vendor",
+  "Mix of the above",
+];
+
 /* ============================================================
    FAQ helpers — used by location/service/coverage pages to pad to 20.
    ============================================================ */

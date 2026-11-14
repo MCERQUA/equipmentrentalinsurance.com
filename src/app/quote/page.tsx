@@ -13,6 +13,7 @@ import {
   ENTITY_TYPES,
   EQUIPMENT_RENTAL_TRADE_TYPES,
   YES_NO_OPTIONS,
+  MAINTENANCE_RESPONSIBILITY_OPTIONS,
   COPY,
 } from "@/lib/content";
 import { postToNetlify } from "@/lib/netlifyForms";
@@ -27,15 +28,15 @@ const trustItems = [
   { icon: MapPin, title: "All 50 states", desc: `Licensed nationwide — NPN #${SITE.npn}.` },
 ];
 
-type EquipmentRow = { year: string; make: string; model: string; serial: string; value: string };
-const blankEquipment = (): EquipmentRow => ({ year: "", make: "", model: "", serial: "", value: "" });
+type EquipmentRow = { year: string; make: string; model: string; serial: string; value: string; vin: string; acv: string };
+const blankEquipment = (): EquipmentRow => ({ year: "", make: "", model: "", serial: "", value: "", vin: "", acv: "" });
 const MAX_EQUIPMENT = 5;   // every row is declared in public/__forms.html; keep in sync
 
 /** One line per piece, so the CSR reads it as a list rather than a blob. */
 function serialiseEquipment(rows: EquipmentRow[]): string {
   return rows
     .filter((r) => r.year || r.make || r.model || r.serial || r.value)
-    .map((r, i) => `${i + 1}. Year: ${r.year || "—"} | Make: ${r.make || "—"} | Model: ${r.model || "—"} | Serial: ${r.serial || "—"} | Value: ${r.value || "—"}`)
+    .map((r, i) => `${i + 1}. Year: ${r.year || "—"} | Make: ${r.make || "—"} | Model: ${r.model || "—"} | Serial: ${r.serial || "—"} | Value: ${r.value || "—"} | VIN: ${r.vin || "—"} | ACV: ${r.acv || "—"}`)
     .join("\n");
 }
 
@@ -44,9 +45,29 @@ export default function QuotePage() {
     name: "", businessName: "", email: "", phone: "",
     streetAddress: "", city: "", state: "", zip: "", fein: "",
     entityType: "", tradeType: "", businessDescription: "", statesOfOperation: "",
-    usesSubcontractors: "", annualRevenue: "", fullTimeEmployees: "",
+    usesSubcontractors: "", annualRevenue: "", annualPayroll: "", fullTimeEmployees: "",
+    yearBusinessStarted: "",
     currentlyInsured: "", lossesLast3Years: "", desiredEffectiveDate: "",
     coverageTypes: "", yearsInBusiness: "", message: "", "bot-field": "",
+    // Point of contact, if different from the applicant — all optional.
+    contactName: "", contactRole: "", contactPhone: "", contactEmail: "",
+    // Why shopping + target premium — optional, helps triage.
+    seekingNewCoverageReason: "", targetPremium: "",
+    // Forward-looking claim awareness, distinct from the 3-year lossesLast3Years lookback.
+    awareOfPotentialClaim: "", awareOfPotentialClaimDescription: "",
+    // Loss history detail, shown only when lossesLast3Years === "Yes".
+    lossHistoryDate: "", lossHistoryAmount: "", lossHistoryDescription: "",
+    // Prior carrier info, shown only when currentlyInsured === "Yes".
+    currentCarrier: "", currentLimits: "", currentPolicyExpiration: "",
+    currentCarrierOfferingRenewal: "", ifNoRenewalWhy: "",
+    shoppedOtherMarkets: "", otherMarketsDetails: "",
+    // Operational practice questions, universal to any rental business.
+    operatesMultipleLocations: "", additionalLocations: "",
+    secondaryBusinessOperations: "", secondaryBusinessOperationsDescription: "",
+    rentalAgreementRequired: "", renterScreeningProcess: "", renterScreeningDescription: "",
+    averageRentalContractLength: "", averageDailyRentalRate: "",
+    equipmentMaintenanceResponsibility: "", equipmentInspectionFrequency: "",
+    renterInsuranceRequired: "", renterInsuranceVerificationMethod: "",
   });
   // Josh (site-manager note): "create sections for rental equipment including year, make,
   // model, serial number, and value allow people to add multiple pieces of equipment".
@@ -88,6 +109,8 @@ export default function QuotePage() {
       equipmentFields[`equipmentModel_${i + 1}`] = r?.model ?? "";
       equipmentFields[`equipmentSerialNumber_${i + 1}`] = r?.serial ?? "";
       equipmentFields[`equipmentValue_${i + 1}`] = r?.value ?? "";
+      equipmentFields[`equipmentVIN_${i + 1}`] = r?.vin ?? "";
+      equipmentFields[`equipmentACV_${i + 1}`] = r?.acv ?? "";
     }
     try {
       const res = await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "quote", source: SITE.domain, ...formData, ...equipmentFields }) });
@@ -172,6 +195,16 @@ export default function QuotePage() {
                         <div><label htmlFor="phone" className={labelClass}>Phone *</label><input id="phone" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder={COPY.quote.phonePlaceholder} className={inputClass} /></div>
                       </div>
 
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="contactName" className={labelClass}>Point of contact name <span className="text-mocha/60 font-normal">(optional, if different from above)</span></label><input id="contactName" name="contactName" type="text" value={formData.contactName} onChange={handleChange} placeholder="Office manager, risk contact, etc." className={inputClass} /></div>
+                        <div><label htmlFor="contactRole" className={labelClass}>Their role <span className="text-mocha/60 font-normal">(optional)</span></label><input id="contactRole" name="contactRole" type="text" value={formData.contactRole} onChange={handleChange} placeholder="Operations manager" className={inputClass} /></div>
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="contactPhone" className={labelClass}>Their phone <span className="text-mocha/60 font-normal">(optional)</span></label><input id="contactPhone" name="contactPhone" type="tel" value={formData.contactPhone} onChange={handleChange} className={inputClass} /></div>
+                        <div><label htmlFor="contactEmail" className={labelClass}>Their email <span className="text-mocha/60 font-normal">(optional)</span></label><input id="contactEmail" name="contactEmail" type="email" value={formData.contactEmail} onChange={handleChange} className={inputClass} /></div>
+                      </div>
+
                       <div><label htmlFor="streetAddress" className={labelClass}>Street address *</label><input id="streetAddress" name="streetAddress" type="text" required value={formData.streetAddress} onChange={handleChange} placeholder="1234 W Main St" className={inputClass} /></div>
 
                       <div className="grid sm:grid-cols-3 gap-4">
@@ -184,24 +217,70 @@ export default function QuotePage() {
 
                       <div><label htmlFor="statesOfOperation" className={labelClass}>States where you operate / rent out equipment *</label><input id="statesOfOperation" name="statesOfOperation" type="text" required value={formData.statesOfOperation} onChange={handleChange} placeholder="e.g. Arizona, Nevada (or 'same as above')" className={inputClass} /></div>
 
+                      <div><label htmlFor="operatesMultipleLocations" className={labelClass}>Do you operate from multiple locations/branches? *</label>
+                        <select id="operatesMultipleLocations" name="operatesMultipleLocations" required value={formData.operatesMultipleLocations} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      {formData.operatesMultipleLocations === "Yes" && (
+                        <div><label htmlFor="additionalLocations" className={labelClass}>List the other locations/branches <span className="text-mocha/60 font-normal">(optional)</span></label><textarea id="additionalLocations" name="additionalLocations" rows={2} value={formData.additionalLocations} onChange={handleChange} placeholder="Address or city/state for each additional yard or branch" className={`${inputClass} resize-none`} /></div>
+                      )}
+
                       <div><label htmlFor="fein" className={labelClass}>Federal Employer ID Number (FEIN) <span className="text-mocha/60 font-normal">(optional)</span></label><input id="fein" name="fein" type="text" inputMode="numeric" value={formData.fein} onChange={handleChange} placeholder="12-3456789" className={inputClass} /></div>
 
                       <div><label htmlFor="businessDescription" className={labelClass}>Describe your rental operations *</label>
                         <textarea id="businessDescription" name="businessDescription" rows={3} required value={formData.businessDescription} onChange={handleChange} placeholder="What do you rent out, to whom (homeowners, contractors, event planners), and do you deliver, operate, or staff the equipment?" className={`${inputClass} resize-none`} />
                       </div>
 
-                      <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business *</label>
-                        <select id="yearsInBusiness" name="yearsInBusiness" required value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      <div><label htmlFor="secondaryBusinessOperations" className={labelClass}>Do you operate any other type of business, besides equipment rental? *</label>
+                        <select id="secondaryBusinessOperations" name="secondaryBusinessOperations" required value={formData.secondaryBusinessOperations} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      {formData.secondaryBusinessOperations === "Yes" && (
+                        <div><label htmlFor="secondaryBusinessOperationsDescription" className={labelClass}>Describe the other business <span className="text-mocha/60 font-normal">(optional)</span></label><textarea id="secondaryBusinessOperationsDescription" name="secondaryBusinessOperationsDescription" rows={2} value={formData.secondaryBusinessOperationsDescription} onChange={handleChange} className={`${inputClass} resize-none`} /></div>
+                      )}
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="yearsInBusiness" className={labelClass}>Years in business *</label>
+                          <select id="yearsInBusiness" name="yearsInBusiness" required value={formData.yearsInBusiness} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YEARS_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                        </div>
+                        <div><label htmlFor="yearBusinessStarted" className={labelClass}>Year business started *</label><input id="yearBusinessStarted" name="yearBusinessStarted" type="text" inputMode="numeric" required value={formData.yearBusinessStarted} onChange={handleChange} placeholder="2015" className={inputClass} /></div>
+                      </div>
+
+                      <div className="grid sm:grid-cols-3 gap-4">
+                        <div><label htmlFor="annualRevenue" className={labelClass}>Annual revenue (estimate) *</label><input id="annualRevenue" name="annualRevenue" type="text" inputMode="numeric" required value={formData.annualRevenue} onChange={handleChange} placeholder="$500,000" className={inputClass} /></div>
+                        <div><label htmlFor="annualPayroll" className={labelClass}>Annual payroll (estimate) *</label><input id="annualPayroll" name="annualPayroll" type="text" inputMode="numeric" required value={formData.annualPayroll} onChange={handleChange} placeholder="$180,000" className={inputClass} /></div>
+                        <div><label htmlFor="fullTimeEmployees" className={labelClass}>Full-time employees *</label><input id="fullTimeEmployees" name="fullTimeEmployees" type="text" inputMode="numeric" required value={formData.fullTimeEmployees} onChange={handleChange} placeholder="4" className={inputClass} /></div>
                       </div>
 
                       <div className="grid sm:grid-cols-2 gap-4">
-                        <div><label htmlFor="annualRevenue" className={labelClass}>Annual revenue (estimate) *</label><input id="annualRevenue" name="annualRevenue" type="text" inputMode="numeric" required value={formData.annualRevenue} onChange={handleChange} placeholder="$500,000" className={inputClass} /></div>
-                        <div><label htmlFor="fullTimeEmployees" className={labelClass}>Full-time employees *</label><input id="fullTimeEmployees" name="fullTimeEmployees" type="text" inputMode="numeric" required value={formData.fullTimeEmployees} onChange={handleChange} placeholder="4" className={inputClass} /></div>
+                        <div><label htmlFor="averageRentalContractLength" className={labelClass}>Average rental length <span className="text-mocha/60 font-normal">(optional)</span></label><input id="averageRentalContractLength" name="averageRentalContractLength" type="text" value={formData.averageRentalContractLength} onChange={handleChange} placeholder="e.g. 3 days, 2 weeks" className={inputClass} /></div>
+                        <div><label htmlFor="averageDailyRentalRate" className={labelClass}>Average rental rate <span className="text-mocha/60 font-normal">(optional)</span></label><input id="averageDailyRentalRate" name="averageDailyRentalRate" type="text" value={formData.averageDailyRentalRate} onChange={handleChange} placeholder="$ per day/week" className={inputClass} /></div>
                       </div>
 
                       <div><label htmlFor="usesSubcontractors" className={labelClass}>Do you use subcontractors (delivery, setup, maintenance, operators)? *</label>
                         <select id="usesSubcontractors" name="usesSubcontractors" required value={formData.usesSubcontractors} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
                       </div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="rentalAgreementRequired" className={labelClass}>Do renters sign a rental agreement/liability waiver before equipment leaves? *</label>
+                          <select id="rentalAgreementRequired" name="rentalAgreementRequired" required value={formData.rentalAgreementRequired} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                        </div>
+                        <div><label htmlFor="renterInsuranceRequired" className={labelClass}>Do you require renters to carry their own insurance on rented equipment? *</label>
+                          <select id="renterInsuranceRequired" name="renterInsuranceRequired" required value={formData.renterInsuranceRequired} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                        </div>
+                      </div>
+
+                      {formData.renterInsuranceRequired === "Yes" && (
+                        <div><label htmlFor="renterInsuranceVerificationMethod" className={labelClass}>How do you verify it? <span className="text-mocha/60 font-normal">(optional)</span></label><input id="renterInsuranceVerificationMethod" name="renterInsuranceVerificationMethod" type="text" value={formData.renterInsuranceVerificationMethod} onChange={handleChange} placeholder="e.g. we collect a COI before pickup" className={inputClass} /></div>
+                      )}
+
+                      <div><label htmlFor="renterScreeningProcess" className={labelClass}>Do you screen or qualify renters before renting (ID, experience, training)? *</label>
+                        <select id="renterScreeningProcess" name="renterScreeningProcess" required value={formData.renterScreeningProcess} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      {formData.renterScreeningProcess === "Yes" && (
+                        <div><label htmlFor="renterScreeningDescription" className={labelClass}>Describe the screening process <span className="text-mocha/60 font-normal">(optional)</span></label><textarea id="renterScreeningDescription" name="renterScreeningDescription" rows={2} value={formData.renterScreeningDescription} onChange={handleChange} className={`${inputClass} resize-none`} /></div>
+                      )}
 
                       <div className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
                         <div>
@@ -226,6 +305,10 @@ export default function QuotePage() {
                               <div><label htmlFor={`equipmentSerialNumber_${i + 1}`} className={labelClass}>Serial number <span className="text-mocha/60 font-normal">(optional)</span></label><input id={`equipmentSerialNumber_${i + 1}`} name={`equipmentSerialNumber_${i + 1}`} type="text" value={row.serial} onChange={(e) => updateEquipment(i, "serial", e.target.value)} placeholder="ALJ812345" className={inputClass} /></div>
                               <div><label htmlFor={`equipmentValue_${i + 1}`} className={labelClass}>Value{i === 0 && " *"}</label><input id={`equipmentValue_${i + 1}`} name={`equipmentValue_${i + 1}`} type="text" inputMode="numeric" required={i === 0} value={row.value} onChange={(e) => updateEquipment(i, "value", e.target.value)} placeholder="$45,000" className={inputClass} /></div>
                             </div>
+                            <div className="grid sm:grid-cols-2 gap-3">
+                              <div><label htmlFor={`equipmentVIN_${i + 1}`} className={labelClass}>VIN <span className="text-mocha/60 font-normal">(optional — titled units like trailers/towables)</span></label><input id={`equipmentVIN_${i + 1}`} name={`equipmentVIN_${i + 1}`} type="text" value={row.vin} onChange={(e) => updateEquipment(i, "vin", e.target.value)} className={inputClass} /></div>
+                              <div><label htmlFor={`equipmentACV_${i + 1}`} className={labelClass}>Actual cash value <span className="text-mocha/60 font-normal">(optional, if different from value above)</span></label><input id={`equipmentACV_${i + 1}`} name={`equipmentACV_${i + 1}`} type="text" inputMode="numeric" value={row.acv} onChange={(e) => updateEquipment(i, "acv", e.target.value)} placeholder="$32,000" className={inputClass} /></div>
+                            </div>
                           </div>
                         ))}
 
@@ -243,10 +326,19 @@ export default function QuotePage() {
                             <input type="hidden" name={`equipmentModel_${i + 1}`} value="" readOnly />
                             <input type="hidden" name={`equipmentSerialNumber_${i + 1}`} value="" readOnly />
                             <input type="hidden" name={`equipmentValue_${i + 1}`} value="" readOnly />
+                            <input type="hidden" name={`equipmentVIN_${i + 1}`} value="" readOnly />
+                            <input type="hidden" name={`equipmentACV_${i + 1}`} value="" readOnly />
                           </div>
                         ))}
                         <input type="hidden" name="equipment" value={serialiseEquipment(equipment)} readOnly />
                         <input type="hidden" name="equipmentCount" value={String(equipment.filter((r) => r.year || r.make || r.model || r.serial || r.value).length)} readOnly />
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="equipmentMaintenanceResponsibility" className={labelClass}>Who's responsible for equipment maintenance? <span className="text-mocha/60 font-normal">(optional)</span></label>
+                          <select id="equipmentMaintenanceResponsibility" name="equipmentMaintenanceResponsibility" value={formData.equipmentMaintenanceResponsibility} onChange={handleChange} className={inputClass}><option value="">Select…</option>{MAINTENANCE_RESPONSIBILITY_OPTIONS.map((m) => (<option key={m} value={m}>{m}</option>))}</select>
+                        </div>
+                        <div><label htmlFor="equipmentInspectionFrequency" className={labelClass}>How often is it inspected/checked? <span className="text-mocha/60 font-normal">(optional)</span></label><input id="equipmentInspectionFrequency" name="equipmentInspectionFrequency" type="text" value={formData.equipmentInspectionFrequency} onChange={handleChange} placeholder="e.g. every return, monthly" className={inputClass} /></div>
                       </div>
 
                       <div className="grid sm:grid-cols-2 gap-4">
@@ -258,11 +350,60 @@ export default function QuotePage() {
                         </div>
                       </div>
 
+                      {formData.currentlyInsured === "Yes" && (
+                        <div className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
+                          <p className="font-heading font-bold text-espresso text-sm">Current coverage <span className="text-mocha/60 font-normal text-xs">(optional, helps us quote faster)</span></p>
+                          <div className="grid sm:grid-cols-3 gap-3">
+                            <div><label htmlFor="currentCarrier" className={labelClass}>Current carrier</label><input id="currentCarrier" name="currentCarrier" type="text" value={formData.currentCarrier} onChange={handleChange} className={inputClass} /></div>
+                            <div><label htmlFor="currentLimits" className={labelClass}>Current limits</label><input id="currentLimits" name="currentLimits" type="text" value={formData.currentLimits} onChange={handleChange} placeholder="$1M/$2M" className={inputClass} /></div>
+                            <div><label htmlFor="currentPolicyExpiration" className={labelClass}>Policy expiration date</label><input id="currentPolicyExpiration" name="currentPolicyExpiration" type="date" value={formData.currentPolicyExpiration} onChange={handleChange} className={inputClass} /></div>
+                          </div>
+                          <div><label htmlFor="currentCarrierOfferingRenewal" className={labelClass}>Is your current carrier offering a renewal?</label>
+                            <select id="currentCarrierOfferingRenewal" name="currentCarrierOfferingRenewal" value={formData.currentCarrierOfferingRenewal} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                          </div>
+                          {formData.currentCarrierOfferingRenewal === "No" && (
+                            <div><label htmlFor="ifNoRenewalWhy" className={labelClass}>Why not?</label><input id="ifNoRenewalWhy" name="ifNoRenewalWhy" type="text" value={formData.ifNoRenewalWhy} onChange={handleChange} className={inputClass} /></div>
+                          )}
+                        </div>
+                      )}
+
+                      <div><label htmlFor="shoppedOtherMarkets" className={labelClass}>Have you already shopped this with other agents/markets? <span className="text-mocha/60 font-normal">(optional)</span></label>
+                        <select id="shoppedOtherMarkets" name="shoppedOtherMarkets" value={formData.shoppedOtherMarkets} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      {formData.shoppedOtherMarkets === "Yes" && (
+                        <div><label htmlFor="otherMarketsDetails" className={labelClass}>What limits/coverage/premium did they offer? <span className="text-mocha/60 font-normal">(optional)</span></label><input id="otherMarketsDetails" name="otherMarketsDetails" type="text" value={formData.otherMarketsDetails} onChange={handleChange} className={inputClass} /></div>
+                      )}
+
+                      {formData.lossesLast3Years === "Yes" && (
+                        <div className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
+                          <p className="font-heading font-bold text-espresso text-sm">Loss detail <span className="text-mocha/60 font-normal text-xs">(optional, helps us quote faster)</span></p>
+                          <div className="grid sm:grid-cols-2 gap-3">
+                            <div><label htmlFor="lossHistoryDate" className={labelClass}>Date of loss</label><input id="lossHistoryDate" name="lossHistoryDate" type="date" value={formData.lossHistoryDate} onChange={handleChange} className={inputClass} /></div>
+                            <div><label htmlFor="lossHistoryAmount" className={labelClass}>Amount (paid/reserved/incurred)</label><input id="lossHistoryAmount" name="lossHistoryAmount" type="text" value={formData.lossHistoryAmount} onChange={handleChange} className={inputClass} /></div>
+                          </div>
+                          <div><label htmlFor="lossHistoryDescription" className={labelClass}>Brief description</label><textarea id="lossHistoryDescription" name="lossHistoryDescription" rows={2} value={formData.lossHistoryDescription} onChange={handleChange} className={`${inputClass} resize-none`} /></div>
+                        </div>
+                      )}
+
+                      <div><label htmlFor="awareOfPotentialClaim" className={labelClass}>Are you aware of any incident, event, or occurrence that might reasonably lead to a future claim? *</label>
+                        <select id="awareOfPotentialClaim" name="awareOfPotentialClaim" required value={formData.awareOfPotentialClaim} onChange={handleChange} className={inputClass}><option value="">Select…</option>{YES_NO_OPTIONS.map((y) => (<option key={y} value={y}>{y}</option>))}</select>
+                      </div>
+
+                      {formData.awareOfPotentialClaim === "Yes" && (
+                        <div><label htmlFor="awareOfPotentialClaimDescription" className={labelClass}>Please explain <span className="text-mocha/60 font-normal">(optional)</span></label><textarea id="awareOfPotentialClaimDescription" name="awareOfPotentialClaimDescription" rows={2} value={formData.awareOfPotentialClaimDescription} onChange={handleChange} className={`${inputClass} resize-none`} /></div>
+                      )}
+
                       <div><label htmlFor="coverageTypes" className={labelClass}>What do you need? *</label>
                         <select id="coverageTypes" name="coverageTypes" required value={formData.coverageTypes} onChange={handleChange} className={inputClass}><option value="">Select coverage…</option>{QUOTE_SERVICE_TYPES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
                       </div>
 
                       <div><label htmlFor="desiredEffectiveDate" className={labelClass}>When do you need coverage to start? *</label><input id="desiredEffectiveDate" name="desiredEffectiveDate" type="date" required value={formData.desiredEffectiveDate} onChange={handleChange} className={inputClass} /></div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div><label htmlFor="seekingNewCoverageReason" className={labelClass}>Why are you shopping for new coverage? <span className="text-mocha/60 font-normal">(optional)</span></label><input id="seekingNewCoverageReason" name="seekingNewCoverageReason" type="text" value={formData.seekingNewCoverageReason} onChange={handleChange} placeholder="e.g. non-renewal, premium increase, new business" className={inputClass} /></div>
+                        <div><label htmlFor="targetPremium" className={labelClass}>Target premium <span className="text-mocha/60 font-normal">(optional)</span></label><input id="targetPremium" name="targetPremium" type="text" inputMode="numeric" value={formData.targetPremium} onChange={handleChange} placeholder="$ per year" className={inputClass} /></div>
+                      </div>
 
                       <div>
                         <label htmlFor="message" className={labelClass}>Project details and rental dates *</label>
