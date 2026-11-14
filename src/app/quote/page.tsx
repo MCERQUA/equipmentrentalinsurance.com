@@ -47,7 +47,7 @@ export default function QuotePage() {
     entityType: "", tradeType: "", businessDescription: "", statesOfOperation: "",
     usesSubcontractors: "", annualRevenue: "", annualPayroll: "", fullTimeEmployees: "",
     yearBusinessStarted: "",
-    currentlyInsured: "", lossesLast3Years: "", desiredEffectiveDate: "", quoteNeededBy: "",
+    currentlyInsured: "", lossesLast3Years: "", desiredEffectiveDate: "",
     coverageTypes: "", yearsInBusiness: "", message: "", "bot-field": "",
     // Point of contact, if different from the applicant — all optional.
     contactName: "", contactRole: "", contactPhone: "", contactEmail: "",
@@ -398,10 +398,7 @@ export default function QuotePage() {
                         <select id="coverageTypes" name="coverageTypes" required value={formData.coverageTypes} onChange={handleChange} className={inputClass}><option value="">Select coverage…</option>{QUOTE_SERVICE_TYPES.map((s) => (<option key={s} value={s}>{s}</option>))}</select>
                       </div>
 
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div><label htmlFor="desiredEffectiveDate" className={labelClass}>When do you need coverage to start? *</label><input id="desiredEffectiveDate" name="desiredEffectiveDate" type="date" required value={formData.desiredEffectiveDate} onChange={handleChange} className={inputClass} /></div>
-                        <div><label htmlFor="quoteNeededBy" className={labelClass}>When do you need this quote by? *</label><input id="quoteNeededBy" name="quoteNeededBy" type="date" required value={formData.quoteNeededBy} onChange={handleChange} className={inputClass} /></div>
-                      </div>
+                      <div><label htmlFor="desiredEffectiveDate" className={labelClass}>When do you need coverage to start? *</label><input id="desiredEffectiveDate" name="desiredEffectiveDate" type="date" required value={formData.desiredEffectiveDate} onChange={handleChange} className={inputClass} /></div>
 
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div><label htmlFor="seekingNewCoverageReason" className={labelClass}>Why are you shopping for new coverage? <span className="text-mocha/60 font-normal">(optional)</span></label><input id="seekingNewCoverageReason" name="seekingNewCoverageReason" type="text" value={formData.seekingNewCoverageReason} onChange={handleChange} placeholder="e.g. non-renewal, premium increase, new business" className={inputClass} /></div>
