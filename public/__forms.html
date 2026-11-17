@@ -6,37 +6,80 @@
 -->
 <form name="quote" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="quote" />
-  <input type="text" name="name" />
   <input type="text" name="businessName" />
-  <input type="text" name="entityType" />
-  <input type="text" name="tradeType" />
-  <input type="email" name="email" />
-  <input type="tel" name="phone" />
-  <input type="text" name="streetAddress" />
-  <input type="text" name="city" />
-  <input type="text" name="state" />
-  <input type="text" name="zip" />
-  <input type="text" name="statesOfOperation" />
-  <input type="text" name="operatesMultipleLocations" />
-  <textarea name="additionalLocations"></textarea>
+  <input type="text" name="name" />
+  <select name="entityType"></select>
   <input type="text" name="fein" />
-  <textarea name="businessDescription"></textarea>
-  <input type="text" name="secondaryBusinessOperations" />
-  <textarea name="secondaryBusinessOperationsDescription"></textarea>
   <input type="text" name="yearBusinessStarted" />
+  <input type="text" name="sicCode" />
+  <input type="text" name="naicsCode" />
+  <select name="tradeType"></select>
+  <textarea name="businessDescription"></textarea>
+  <input type="text" name="statesOfOperation" />
+  <input type="text" name="fullTimeEmployees" />
+  <input type="text" name="partTimeEmployees" />
   <input type="text" name="annualRevenue" />
   <input type="text" name="annualPayroll" />
-  <input type="text" name="fullTimeEmployees" />
+  <input type="text" name="largestProjectValue" />
+  <input type="text" name="streetAddress" />
+  <input type="text" name="city" />
+  <select name="state"></select>
+  <input type="text" name="zip" />
+  <input type="email" name="email" />
+  <input type="tel" name="phone" />
+  <input type="text" name="contactName" />
+  <input type="text" name="contactRole" />
+  <input type="tel" name="contactPhone" />
+  <input type="email" name="contactEmail" />
+  <select name="operatesMultipleLocations"></select>
+  <textarea name="additionalLocations"></textarea>
+  <select name="secondaryBusinessOperations"></select>
+  <textarea name="secondaryBusinessOperationsDescription"></textarea>
+  <select name="usesSubcontractors"></select>
+  <textarea name="usesSubcontractorsExplain"></textarea>
+  <select name="rentalAgreementRequired"></select>
+  <select name="renterInsuranceRequired"></select>
+  <input type="text" name="renterInsuranceVerificationMethod" />
+  <select name="renterScreeningProcess"></select>
+  <textarea name="renterScreeningDescription"></textarea>
   <input type="text" name="averageRentalContractLength" />
   <input type="text" name="averageDailyRentalRate" />
-  <input type="text" name="usesSubcontractors" />
-  <input type="text" name="rentalAgreementRequired" />
-  <input type="text" name="renterInsuranceRequired" />
-  <input type="text" name="renterInsuranceVerificationMethod" />
-  <input type="text" name="renterScreeningProcess" />
-  <textarea name="renterScreeningDescription"></textarea>
-  <input type="text" name="equipment" />
-  <input type="text" name="equipmentCount" />
+  <select name="equipmentMaintenanceResponsibility"></select>
+  <input type="text" name="equipmentInspectionFrequency" />
+  <select name="additionalOperators"></select>
+  <input type="text" name="operator1Name" />
+  <input type="text" name="operator1Street" />
+  <input type="text" name="operator1City" />
+  <select name="operator1State"></select>
+  <input type="text" name="operator1Zip" />
+  <input type="tel" name="operator1Phone" />
+  <input type="email" name="operator1Email" />
+  <textarea name="operator1Experience"></textarea>
+  <input type="text" name="operator2Name" />
+  <input type="text" name="operator2Street" />
+  <input type="text" name="operator2City" />
+  <select name="operator2State"></select>
+  <input type="text" name="operator2Zip" />
+  <input type="tel" name="operator2Phone" />
+  <input type="email" name="operator2Email" />
+  <textarea name="operator2Experience"></textarea>
+  <input type="date" name="rentalStartDate" />
+  <input type="text" name="rentalStartTime" />
+  <input type="date" name="rentalEndDate" />
+  <input type="text" name="rentalEndTime" />
+  <input type="text" name="lessorName" />
+  <input type="text" name="lessorStreet" />
+  <input type="text" name="lessorCity" />
+  <select name="lessorState"></select>
+  <input type="text" name="lessorZip" />
+  <select name="rentalSiteDiffers"></select>
+  <input type="text" name="rentalSiteStreet" />
+  <input type="text" name="rentalSiteCity" />
+  <select name="rentalSiteState"></select>
+  <input type="text" name="rentalSiteZip" />
+  <textarea name="rentalExperience"></textarea>
+  <textarea name="message"></textarea>
+  <input type="text" name="equipmentType_1" />
   <input type="text" name="equipmentYear_1" />
   <input type="text" name="equipmentMake_1" />
   <input type="text" name="equipmentModel_1" />
@@ -44,6 +87,7 @@
   <input type="text" name="equipmentValue_1" />
   <input type="text" name="equipmentVIN_1" />
   <input type="text" name="equipmentACV_1" />
+  <input type="text" name="equipmentType_2" />
   <input type="text" name="equipmentYear_2" />
   <input type="text" name="equipmentMake_2" />
   <input type="text" name="equipmentModel_2" />
@@ -51,6 +95,7 @@
   <input type="text" name="equipmentValue_2" />
   <input type="text" name="equipmentVIN_2" />
   <input type="text" name="equipmentACV_2" />
+  <input type="text" name="equipmentType_3" />
   <input type="text" name="equipmentYear_3" />
   <input type="text" name="equipmentMake_3" />
   <input type="text" name="equipmentModel_3" />
@@ -58,6 +103,7 @@
   <input type="text" name="equipmentValue_3" />
   <input type="text" name="equipmentVIN_3" />
   <input type="text" name="equipmentACV_3" />
+  <input type="text" name="equipmentType_4" />
   <input type="text" name="equipmentYear_4" />
   <input type="text" name="equipmentMake_4" />
   <input type="text" name="equipmentModel_4" />
@@ -65,6 +111,7 @@
   <input type="text" name="equipmentValue_4" />
   <input type="text" name="equipmentVIN_4" />
   <input type="text" name="equipmentACV_4" />
+  <input type="text" name="equipmentType_5" />
   <input type="text" name="equipmentYear_5" />
   <input type="text" name="equipmentMake_5" />
   <input type="text" name="equipmentModel_5" />
@@ -72,33 +119,44 @@
   <input type="text" name="equipmentValue_5" />
   <input type="text" name="equipmentVIN_5" />
   <input type="text" name="equipmentACV_5" />
-  <input type="text" name="equipmentMaintenanceResponsibility" />
-  <input type="text" name="equipmentInspectionFrequency" />
-  <input type="text" name="currentlyInsured" />
+  <input type="date" name="desiredEffectiveDate" />
+  <input type="date" name="quoteNeededBy" />
+  <select name="requestedLimits"></select>
+  <input type="text" name="limitsOther" />
+  <select name="deductibleOption"></select>
+  <input type="text" name="deductibleOther" />
+  <input type="checkbox" name="coverageTypes" />
+  <textarea name="otherCoverageDetail_pollution"></textarea>
+  <textarea name="otherCoverageDetail_workersComp"></textarea>
+  <textarea name="otherCoverageDetail_commercialAuto"></textarea>
+  <textarea name="otherCoverageDetail_umbrella"></textarea>
+  <textarea name="otherCoverageDetail_bonds"></textarea>
+  <textarea name="otherCoverageDetail_equipmentInlandMarine"></textarea>
+  <textarea name="otherCoverageDetail_liquor"></textarea>
+  <input type="text" name="seekingNewCoverageReason" />
+  <input type="text" name="targetPremium" />
+  <select name="currentlyInsured"></select>
+  <input type="text" name="currentPolicyType" />
   <input type="text" name="currentCarrier" />
-  <input type="text" name="currentLimits" />
+  <input type="text" name="currentPolicyNumber" />
+  <input type="date" name="currentPolicyEffective" />
   <input type="date" name="currentPolicyExpiration" />
-  <input type="text" name="currentCarrierOfferingRenewal" />
+  <input type="text" name="currentLimits" />
+  <select name="currentCarrierOfferingRenewal"></select>
   <input type="text" name="ifNoRenewalWhy" />
-  <input type="text" name="shoppedOtherMarkets" />
+  <select name="shoppedOtherMarkets"></select>
   <input type="text" name="otherMarketsDetails" />
-  <input type="text" name="lossesLast3Years" />
+  <select name="lossesLast3Years"></select>
+  <input type="text" name="lossCount" />
   <input type="date" name="lossHistoryDate" />
   <input type="text" name="lossHistoryAmount" />
   <textarea name="lossHistoryDescription"></textarea>
-  <input type="text" name="awareOfPotentialClaim" />
+  <select name="awareOfPotentialClaim"></select>
   <textarea name="awareOfPotentialClaimDescription"></textarea>
-  <input type="text" name="coverageTypes" />
-  <input type="date" name="desiredEffectiveDate" />
-  <input type="date" name="quoteNeededBy" />
-  <input type="text" name="seekingNewCoverageReason" />
-  <input type="text" name="targetPremium" />
+  <input type="text" name="applicationDate" />
   <input type="text" name="yearsInBusiness" />
-  <textarea name="message"></textarea>
-  <input type="text" name="contactName" />
-  <input type="text" name="contactRole" />
-  <input type="tel" name="contactPhone" />
-  <input type="email" name="contactEmail" />
+  <input type="text" name="equipment" />
+  <input type="text" name="equipmentCount" />
   <input name="bot-field" type="text" />
 </form>
 
