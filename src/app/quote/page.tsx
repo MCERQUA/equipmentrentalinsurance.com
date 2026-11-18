@@ -10,7 +10,7 @@ import { COPY } from "@/lib/content";
 import { CheckCircle2, ShieldCheck, ArrowRight, Clock, Zap, MapPin } from "lucide-react";
 import {
   ALL_FIELDS, BY_NAME, FIELDS, MAX_MACHINES, NOTICE, OTHER_COVERAGES, SECTIONS, isRequired, isShown,
-  listOf, validateQuote, type Field, type Flat,
+  listOf, validateQuote, isSoleProp, SOLE_PROP, type Field, type Flat,
 } from "./quote-spec";
 
 const trustItems = [
@@ -37,7 +37,14 @@ export default function QuotePage() {
   const errorNames = Object.keys(errors);
   const valid = errorNames.length === 0;
 
-  const set = (name: string, v: string) => setValues((p) => ({ ...p, [name]: v }));
+  const set = (name: string, v: string) => setValues((p) => {
+    const n = { ...p, [name]: v };
+    // Sole proprietor: operator 1 is the applicant. Prefill (editable) operator 1's name from the applicant name
+    // while it is blank or still mirrors the applicant name; never touches DOB/licence.
+    if (name === "entityType" && v === SOLE_PROP && !(p.operator1Name || "").trim()) n.operator1Name = n.businessName || "";
+    if (name === "businessName" && isSoleProp(n) && ((p.operator1Name || "").trim() === "" || p.operator1Name === p.businessName)) n.operator1Name = v;
+    return n;
+  });
   const touch = (name: string) => setTouched((p) => ({ ...p, [name]: true }));
   const toggleCoverage = (value: string, on: boolean) => {
     const cur = listOf(values.coverageTypes);
@@ -110,6 +117,9 @@ export default function QuotePage() {
   const renderSection = (sectionId: string) => {
     const fs = FIELDS.filter((f) => f.section === sectionId && !f.coverageKey && isShown(f, values));
     const out: React.ReactNode[] = [];
+    if (sectionId === "operators" && isSoleProp(values)) {
+      out.push(<p key="sole-prop-note" className="text-sm text-espresso font-medium" data-testid="sole-prop-operator-note">As a sole proprietor you are the operator: please enter your own details.</p>);
+    }
     let i = 0;
     while (i < fs.length) {
       const f = fs[i];

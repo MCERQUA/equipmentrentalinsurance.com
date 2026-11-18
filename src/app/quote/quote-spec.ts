@@ -84,6 +84,7 @@ export const MAX_OPERATORS = 2;
 
 // ------------------------------------------------------------------ field definitions
 const is = (k: string, v: string) => (d: Flat) => (d[k] || "").trim() === v;
+export const isSoleProp = (d: Flat) => (d.entityType || "").trim() === SOLE_PROP;
 const any = (names: string[]) => (d: Flat) => names.some((n) => (d[n] || "").trim() !== "");
 const T = (name: string, label: string, section: string, o: Partial<Field> = {}): Field => ({ name, label, section, kind: "text", max: 120, ...o });
 
@@ -111,8 +112,12 @@ const opRow = (n: number): Field[] => {
   const p = `operator${n}`;
   const names = ["Name", "Street", "City", "State", "Zip", "Phone", "Email", "Experience", "DateOfBirth", "LicenseNumber", "LicenseState", "LicenseExpiration"].map((x) => p + x);
   const yes = is("additionalOperators", "Yes");
-  const when = n === 1 ? yes : (d: Flat) => yes(d) && any(names)(d);
-  const base: Partial<Field> = { when, show: yes, group: n === 1 ? undefined : `operator-${n}` };
+  // Operator 1 is required when the applicant lists additional operators OR is an individual / sole
+  // proprietor (the applicant IS operator 1, whatever additionalOperators says). Operator 2 stays
+  // all-or-nothing and only exists when additionalOperators = Yes.
+  const op1 = (d: Flat) => yes(d) || isSoleProp(d);
+  const when = n === 1 ? op1 : (d: Flat) => yes(d) && any(names)(d);
+  const base: Partial<Field> = { when, show: n === 1 ? op1 : yes, group: n === 1 ? undefined : `operator-${n}` };
   const l = `Operator ${n}`;
   return [
     T(`${p}Name`, `${l}: full name`, "operators", base),
@@ -343,6 +348,11 @@ export function validateQuote(d: Flat, now: Date = new Date()): Record<string, s
       }
       default: break;
     }
+  }
+
+  // Sole proprietor / individual: operator 1 is the applicant, so the names must match (case-insensitive, trimmed).
+  if (isSoleProp(d) && get("operator1Name") && get("businessName") && get("operator1Name").toLowerCase() !== get("businessName").toLowerCase()) {
+    err.operator1Name = "Operator 1: full name must be the same as the applicant's name (as a sole proprietor you are the operator)";
   }
 
   const dt = (k: string) => { const v = get(k); return v ? validDate(v) : null; };
