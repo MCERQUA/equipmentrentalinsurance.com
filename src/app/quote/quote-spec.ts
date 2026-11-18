@@ -6,11 +6,14 @@
 // EIBI) per skills/acord-forms/forms/equipment-rental/FIELDS.md, plus the base ACORD web spec
 // (_app-specs/ACORD-CORE-WEB-SPEC.md). Commercial site: NO date of birth, driver licence, SSN,
 // signature or payment fields are collected. Live field names are never renamed.
+// Operator block only: date of birth + driver licence (number, state, expiry) are collected for LISTED
+// operators (ACORD "Date of Birth_2/s License No_2/State of Issuance_2/Expiration Date_2" for operator 1,
+// _3 for operator 2). Never SSN/card/bank. These values must never be logged or echoed anywhere.
 
 export type Flat = Record<string, string>;
 export type Kind =
   | "text" | "email" | "tel" | "date" | "time" | "int" | "year" | "money" | "money0" | "zip"
-  | "fein" | "sic" | "naics" | "states" | "select" | "textarea" | "yn" | "checks";
+  | "fein" | "sic" | "naics" | "states" | "select" | "textarea" | "yn" | "checks" | "dob" | "dlno" | "licexp";
 export interface Field {
   name: string;
   label: string;
@@ -37,7 +40,7 @@ export const YES_NO = ["Yes", "No"];
 export const STATE_NAMES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming",
 ];
-const STATE_CODES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+export const STATE_CODES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
 export const ENTITY_TYPES = ["Individual / Sole proprietorship", "Partnership", "Corporation", "LLC", "Joint venture", "Other"];
 export const SOLE_PROP = "Individual / Sole proprietorship";
@@ -103,9 +106,10 @@ const equipRow = (n: number): Field[] => {
   ];
 };
 
+const DL_MAX = 20; // ACORD box is auto-size; 20 covers every state's licence-number format
 const opRow = (n: number): Field[] => {
   const p = `operator${n}`;
-  const names = ["Name", "Street", "City", "State", "Zip", "Phone", "Email", "Experience"].map((x) => p + x);
+  const names = ["Name", "Street", "City", "State", "Zip", "Phone", "Email", "Experience", "DateOfBirth", "LicenseNumber", "LicenseState", "LicenseExpiration"].map((x) => p + x);
   const yes = is("additionalOperators", "Yes");
   const when = n === 1 ? yes : (d: Flat) => yes(d) && any(names)(d);
   const base: Partial<Field> = { when, show: yes, group: n === 1 ? undefined : `operator-${n}` };
@@ -119,6 +123,10 @@ const opRow = (n: number): Field[] => {
     T(`${p}Phone`, `${l}: phone`, "operators", { ...base, kind: "tel", max: 30 }),
     T(`${p}Email`, `${l}: email`, "operators", { ...base, kind: "email" }),
     T(`${p}Experience`, `${l}: experience operating this type of rented equipment`, "operators", { ...base, kind: "textarea", max: 250 }),
+    T(`${p}DateOfBirth`, `${l}: date of birth`, "operators", { ...base, kind: "dob", max: 10, autocomplete: "off" }),
+    T(`${p}LicenseNumber`, `${l}: driver's licence number`, "operators", { ...base, kind: "dlno", max: DL_MAX, autocomplete: "off" }),
+    T(`${p}LicenseState`, `${l}: state that issued the licence`, "operators", { ...base, kind: "select", options: STATE_CODES, autocomplete: "off" }),
+    T(`${p}LicenseExpiration`, `${l}: licence expiration date`, "operators", { ...base, kind: "licexp", max: 10, autocomplete: "off" }),
   ];
 };
 
@@ -176,7 +184,7 @@ export const FIELDS: Field[] = [
   T("equipmentMaintenanceResponsibility", "Who is responsible for equipment maintenance? (optional)", "operations", { req: false, kind: "select", options: MAINTENANCE_OPTIONS }),
   T("equipmentInspectionFrequency", "How often is it inspected/checked? (optional)", "operations", { req: false, placeholder: "every return, monthly" }),
 
-  // ---- 4. operators (DOB / driver licence deliberately NOT collected: commercial site)
+  // ---- 4. operators (DOB + driver licence collected per listed operator; email path only, never SMS)
   T("additionalOperators", "Will anyone besides you operate the rented equipment? (An operator who is not listed has no coverage.)", "operators", { kind: "yn" }),
   ...opRow(1),
   ...opRow(2),
@@ -255,6 +263,8 @@ export const MONEY_RE = /^\$?\d{1,3}(,\d{3})+(\.\d{1,2})?$|^\$?\d+(\.\d{1,2})?$/
 const INT_RE = /^\d+$/;
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const DL_RE = /^[A-Za-z0-9][A-Za-z0-9 \-]*$/;
+const MIN_DRIVER_AGE = 16;
 const FEIN_RE = /^\d{2}-?\d{7}$/;
 const LOWER_STATES = STATE_NAMES.map((s) => s.toLowerCase());
 
@@ -308,6 +318,22 @@ export function validateQuote(d: Flat, now: Date = new Date()): Record<string, s
       }
       case "time": if (!TIME_RE.test(v)) err[f.name] = `${lab} must be a valid time`; break;
       case "date": if (!validDate(v)) err[f.name] = `${lab} must be a valid date`; break;
+      case "dob": {
+        const x = validDate(v);
+        if (!x) { err[f.name] = `${lab} must be a valid date`; break; }
+        const cut = new Date(Date.UTC(today.getUTCFullYear() - MIN_DRIVER_AGE, today.getUTCMonth(), today.getUTCDate()));
+        if (x.getUTCFullYear() < 1900) err[f.name] = `${lab} must be a real date of birth`;
+        else if (x.getTime() >= today.getTime()) err[f.name] = `${lab} must be a date in the past`;
+        else if (x.getTime() > cut.getTime()) err[f.name] = `${lab}: an operator must be at least ${MIN_DRIVER_AGE} years old`;
+        break;
+      }
+      case "licexp": {
+        const x = validDate(v);
+        if (!x) err[f.name] = `${lab} must be a valid date`;
+        else if (x.getUTCFullYear() < 1990) err[f.name] = `${lab} cannot be before 1990`;
+        break;
+      }
+      case "dlno": if (!DL_RE.test(v)) err[f.name] = `${lab} may contain only letters, numbers, spaces and hyphens`; break;
       case "select": if (!(f.options || []).includes(v)) err[f.name] = `${lab}: choose one of the listed options`; break;
       case "yn": if (!YES_NO.includes(v)) err[f.name] = `${lab}: choose Yes or No`; break;
       case "checks": {

@@ -82,6 +82,8 @@ export default function QuotePage() {
       case "textarea":
         return (<textarea {...common} onChange={on} rows={3} maxLength={f.max} placeholder={ph} className={`${inputClass} resize-none`} />);
       case "date": return (<input {...common} onChange={on} type="date" />);
+      case "dob": case "licexp": return (<input {...common} onChange={on} type="date" autoComplete="off" />);
+      case "dlno": return (<input {...common} onChange={on} type="text" maxLength={f.max} autoComplete="off" autoCapitalize="characters" spellCheck={false} />);
       case "time": return (<input {...common} onChange={on} type="time" />);
       case "email": return (<input {...common} onChange={on} type="email" maxLength={f.max} autoComplete={f.autocomplete} />);
       case "tel": return (<input {...common} onChange={on} type="tel" maxLength={f.max} autoComplete={f.autocomplete} />);
@@ -204,7 +206,7 @@ export default function QuotePage() {
                       {SECTIONS.map((s) => (
                         <fieldset key={s.id} className="rounded-2xl border border-adobe bg-cream/40 p-5 space-y-4">
                           <legend className="px-2 font-heading font-bold text-espresso text-sm">{s.title}</legend>
-                          {s.id === "operators" && <p className="text-xs text-mocha">We do not collect driver licence or date of birth here; your agent will follow up on operator details if needed.</p>}
+                          {s.id === "operators" && <p className="text-xs text-mocha">Used only to prepare your application; never sent by text message.</p>}
                           {s.id === "equipment" && <p className="text-xs text-mocha">Equipment 1 is required, including its serial number. Renting more machines? Open machine 2-{MAX_MACHINES}; if you start a row, complete the whole row.</p>}
                           <div className="grid sm:grid-cols-2 gap-4">{renderSection(s.id)}</div>
                         </fieldset>
