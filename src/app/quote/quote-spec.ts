@@ -55,6 +55,9 @@ export const LIMIT_OPTIONS = [
   "Platinum: $100,000 per person, $200,000 per accident, $400,000 aggregate",
   "Other",
 ];
+export const OWNER_TENANT = ["Owner", "Tenant"];
+export const LOSS_LINES = ["General liability", "Property", "Inland marine / equipment", "Commercial auto", "Workers compensation", "Umbrella / excess", "Other"];
+export const LOSS_STATUS = ["Open", "Closed", "Both open and closed"];
 export const DEDUCTIBLE_OPTIONS = ["$500", "$1,000", "$2,500", "Other"];
 
 // ONE optional "other coverage you need" checklist; each ticked item needs a free-text box.
@@ -165,6 +168,13 @@ export const FIELDS: Field[] = [
   T("city", "City", "address", { autocomplete: "address-level2", max: 60 }),
   T("state", "State", "address", { kind: "select", options: STATE_NAMES, autocomplete: "address-level1" }),
   T("zip", "ZIP code", "address", { kind: "zip", max: 10, autocomplete: "postal-code" }),
+  T("physicalCounty", "County of the business address (optional)", "address", { req: false, max: 60 }),
+  T("premisesOwnerOrTenant", "Do you own or rent (tenant) the business premises? (optional)", "address", { req: false, kind: "select", options: OWNER_TENANT }),
+  T("mailingSameAsPhysical", "Is your mailing address the same as the street address above? (optional)", "address", { req: false, kind: "yn" }),
+  T("mailingStreetAddress", "Mailing address: street or PO box (optional)", "address", { req: false, show: is("mailingSameAsPhysical", "No") }),
+  T("mailingCity", "Mailing address: city (optional)", "address", { req: false, max: 60, show: is("mailingSameAsPhysical", "No") }),
+  T("mailingState", "Mailing address: state (optional)", "address", { req: false, kind: "select", options: STATE_NAMES, show: is("mailingSameAsPhysical", "No") }),
+  T("mailingZip", "Mailing address: ZIP (optional)", "address", { req: false, kind: "zip", max: 10, show: is("mailingSameAsPhysical", "No") }),
   T("email", "Email address", "address", { kind: "email", autocomplete: "email" }),
   T("phone", "Phone number", "address", { kind: "tel", max: 30, autocomplete: "tel" }),
   T("contactName", "Point of contact name (optional, if different from above)", "address", { req: false }),
@@ -179,6 +189,9 @@ export const FIELDS: Field[] = [
   T("secondaryBusinessOperationsDescription", "Describe the other business", "operations", { kind: "textarea", max: 400, when: is("secondaryBusinessOperations", "Yes") }),
   T("usesSubcontractors", "Do you use subcontractors (delivery, setup, maintenance, operators)?", "operations", { kind: "yn" }),
   T("usesSubcontractorsExplain", "Explain: what work do subcontractors do for you?", "operations", { kind: "textarea", max: 250, when: is("usesSubcontractors", "Yes") }),
+  T("percentSubcontracted", "What percent of your work is subcontracted, 0 to 100? (optional)", "operations", { req: false, kind: "int", max: 3, show: is("usesSubcontractors", "Yes") }),
+  T("lastSubcontractingCosts", "Subcontracting costs, last 12 months (optional, exact dollar amount)", "operations", { req: false, kind: "money0", max: 14, show: is("usesSubcontractors", "Yes") }),
+  T("subsProvideCOI", "Do your subcontractors carry their own insurance and give you a certificate? (optional)", "operations", { req: false, kind: "yn", show: is("usesSubcontractors", "Yes") }),
   T("rentalAgreementRequired", "Do renters sign a rental agreement/liability waiver before equipment leaves?", "operations", { kind: "yn" }),
   T("renterInsuranceRequired", "Do you require renters to carry their own insurance on rented equipment?", "operations", { kind: "yn" }),
   T("renterInsuranceVerificationMethod", "How do you verify it?", "operations", { max: 250, when: is("renterInsuranceRequired", "Yes") }),
@@ -204,6 +217,9 @@ export const FIELDS: Field[] = [
   T("lessorCity", "Renting from: city", "rental", { max: 60 }),
   T("lessorState", "Renting from: state", "rental", { kind: "select", options: STATE_NAMES }),
   T("lessorZip", "Renting from: ZIP", "rental", { kind: "zip", max: 10 }),
+  T("certificateHolderName", "Certificate holder name, if a certificate of insurance is needed (optional)", "rental", { req: false }),
+  T("certificateHolderAddress", "Certificate holder mailing address (optional)", "rental", { req: false, max: 200 }),
+  T("additionalInsuredName", "Additional insured name, if anyone must be added to the policy (optional)", "rental", { req: false }),
   T("rentalSiteDiffers", "Will the equipment be used at an address different from your business address?", "rental", { kind: "yn" }),
   T("rentalSiteStreet", "Rental location: street address", "rental", { when: is("rentalSiteDiffers", "Yes") }),
   T("rentalSiteCity", "Rental location: city", "rental", { max: 60, when: is("rentalSiteDiffers", "Yes") }),
@@ -234,7 +250,6 @@ export const FIELDS: Field[] = [
   T("currentlyInsured", "Do you currently have insurance in force?", "history", { kind: "yn" }),
   T("currentPolicyType", "Current policy type", "history", { when: insured, placeholder: "General liability" }),
   T("currentCarrier", "Current carrier (optional)", "history", { req: false, show: insured }),
-  T("currentPolicyNumber", "Current policy number", "history", { when: insured, max: 40 }),
   T("currentPolicyEffective", "Current policy effective date", "history", { kind: "date", when: insured }),
   T("currentPolicyExpiration", "Current policy expiration date (optional)", "history", { kind: "date", req: false, show: insured }),
   T("currentLimits", "Current coverage limits", "history", { when: insured, placeholder: "$1M/$2M" }),
@@ -246,6 +261,13 @@ export const FIELDS: Field[] = [
   T("lossCount", "How many?", "history", { kind: "int", max: 3, when: losses }),
   T("lossHistoryDate", "Date of the (most recent) loss", "history", { kind: "date", when: losses }),
   T("lossHistoryAmount", "Amount of the (most recent) loss, paid/reserved/incurred (exact dollar amount)", "history", { kind: "money0", max: 14, when: losses }),
+  T("lossLineOfBusiness", "Line of business of the loss (optional)", "history", { req: false, kind: "select", options: LOSS_LINES, show: losses }),
+  T("lossDate", "Date of loss from your loss run (optional)", "history", { req: false, kind: "date", show: losses }),
+  T("lossAmountPaid", "Amount paid on the loss(es) (optional, exact dollar amount)", "history", { req: false, kind: "money0", max: 14, show: losses }),
+  T("lossAmountReserved", "Amount reserved / still open on the loss(es) (optional, exact dollar amount)", "history", { req: false, kind: "money0", max: 14, show: losses }),
+  T("lossHistoryStatus", "Status of the loss(es) (optional)", "history", { req: false, kind: "select", options: LOSS_STATUS, show: losses }),
+  T("lossDescription", "Describe the loss from your loss run (optional)", "history", { req: false, kind: "textarea", max: 400, show: losses }),
+  T("lossAdditional", "Any additional losses: date, line of business, paid and reserved amounts (optional)", "history", { req: false, kind: "textarea", max: 600, show: losses }),
   T("lossHistoryDescription", "Explain each loss: date, what happened, amount paid, open or closed", "history", { kind: "textarea", max: 600, when: losses }),
   T("awareOfPotentialClaim", "Are you aware of any incident, event, or occurrence that might reasonably lead to a future claim?", "history", { kind: "yn" }),
   T("awareOfPotentialClaimDescription", "Please explain", "history", { kind: "textarea", max: 400, when: is("awareOfPotentialClaim", "Yes") }),
@@ -367,6 +389,7 @@ export function validateQuote(d: Flat, now: Date = new Date()): Record<string, s
   }
   const ce = dt("currentPolicyEffective"), cx = dt("currentPolicyExpiration");
   if (ce && cx && cx.getTime() <= ce.getTime()) err.currentPolicyExpiration = "Current policy expiration date must be after its effective date";
+  if (INT_RE.test(get("percentSubcontracted")) && Number(get("percentSubcontracted")) > 100 && get("usesSubcontractors") === "Yes") err.percentSubcontracted = "Percent subcontracted must be between 0 and 100";
   if (get("lossesLast3Years") === "Yes" && INT_RE.test(get("lossCount")) && Number(get("lossCount")) < 1) err.lossCount = "How many? must be at least 1 when you answered Yes";
   return err;
 }
@@ -390,7 +413,7 @@ export function withDerived(d: Flat, now: Date = new Date()): Flat {
   o.applicationDate = now.toISOString().slice(0, 10);
   o.yearsInBusiness = yearsBucket(Number(o.yearBusinessStarted), now);
   if (o.currentlyInsured === "No") {
-    for (const k of ["currentPolicyType", "currentCarrier", "currentPolicyNumber", "currentPolicyEffective", "currentPolicyExpiration", "currentLimits"]) o[k] = "None";
+    for (const k of ["currentPolicyType", "currentCarrier", "currentPolicyEffective", "currentPolicyExpiration", "currentLimits"]) o[k] = "None";
   }
   if (o.lossesLast3Years === "No") {
     o.lossCount = "0";
