@@ -42,7 +42,7 @@ export const STATE_NAMES = [
 ];
 export const STATE_CODES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
-export const ENTITY_TYPES = ["Individual / Sole proprietorship", "Partnership", "Corporation", "LLC", "Joint venture", "Other"];
+export const ENTITY_TYPES = ["Individual / Sole proprietorship", "Partnership", "Corporation", "S-Corp", "LLC", "Trust", "Not-for-profit", "Joint venture", "Other"];
 export const SOLE_PROP = "Individual / Sole proprietorship";
 export const TRADE_TYPES = [
   "Construction & heavy equipment rental", "Tool & small equipment rental", "Party / event equipment rental",
@@ -219,6 +219,7 @@ export const FIELDS: Field[] = [
   T("lessorZip", "Renting from: ZIP", "rental", { kind: "zip", max: 10 }),
   T("certificateHolderName", "Certificate holder name, if a certificate of insurance is needed (optional)", "rental", { req: false }),
   T("certificateHolderAddress", "Certificate holder mailing address (optional)", "rental", { req: false, max: 200 }),
+  T("additionalInsuredNeeded", "Must anyone be added to the policy as an additional insured? (optional)", "rental", { req: false, kind: "yn" }),
   T("additionalInsuredName", "Additional insured name, if anyone must be added to the policy (optional)", "rental", { req: false }),
   T("rentalSiteDiffers", "Will the equipment be used at an address different from your business address?", "rental", { kind: "yn" }),
   T("rentalSiteStreet", "Rental location: street address", "rental", { when: is("rentalSiteDiffers", "Yes") }),
@@ -276,7 +277,9 @@ export const FIELDS: Field[] = [
 export const BY_NAME: Record<string, Field> = Object.fromEntries(FIELDS.map((f) => [f.name, f]));
 // Derived/server-filled names (also registered in __forms.html).
 export const DERIVED = ["applicationDate", "yearsInBusiness", "equipment", "equipmentCount"];
-export const ALL_FIELDS: string[] = [...FIELDS.map((f) => f.name), ...DERIVED];
+// Hidden attribution inputs (filled client-side, never validated, never shown): where the visitor came from.
+export const ATTRIBUTION = ["traffic_source", "landing_url"];
+export const ALL_FIELDS: string[] = [...FIELDS.map((f) => f.name), ...DERIVED, ...ATTRIBUTION];
 
 export function listOf(v: string | undefined): string[] {
   return (v || "").split(",").map((s) => s.trim()).filter(Boolean);
@@ -408,6 +411,7 @@ function yearsBucket(started: number, now: Date): string {
 export function withDerived(d: Flat, now: Date = new Date()): Flat {
   const o: Flat = {};
   for (const f of ALL_FIELDS) o[f] = (d[f] ?? "").toString().trim();
+  for (const k of ATTRIBUTION) o[k] = o[k].slice(0, 500);
   // drop answers left over from a branch that is switched off
   for (const f of FIELDS) if (!isShown(f, o) && !isRequired(f, o)) o[f.name] = "";
   o.applicationDate = now.toISOString().slice(0, 10);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
@@ -32,6 +32,16 @@ export default function QuotePage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
+
+  // Attribution (best-effort, client-only): traffic_source = utm_source | ref | referrer hostname | direct; landing_url = href.
+  useEffect(() => {
+    try {
+      const p = new URLSearchParams(window.location.search);
+      let src = p.get("utm_source") || p.get("ref") || "";
+      if (!src && document.referrer) { try { src = new URL(document.referrer).hostname; } catch { src = document.referrer; } }
+      setValues((v) => ({ ...v, traffic_source: src || "direct", landing_url: window.location.href }));
+    } catch { /* never blocks the form */ }
+  }, []);
 
   const errors = useMemo(() => validateQuote(values), [values]);
   const errorNames = Object.keys(errors);
@@ -209,6 +219,8 @@ export default function QuotePage() {
                   <FadeIn>
                     <form name="quote" id="quote-form" onSubmit={handleSubmit} noValidate className="rounded-3xl bg-white border border-adobe shadow-card p-7 md:p-9 space-y-5">
                       <input type="hidden" name="form-name" value="quote" />
+                      <input type="hidden" name="traffic_source" value={values.traffic_source} readOnly />
+                      <input type="hidden" name="landing_url" value={values.landing_url} readOnly />
                       <input name="bot-field" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={values["bot-field"]} onChange={(e) => set("bot-field", e.target.value)} style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
 
                       <p className="text-sm text-espresso font-heading font-semibold rounded-xl bg-cream/60 border border-adobe p-4" role="note">{NOTICE}</p>
