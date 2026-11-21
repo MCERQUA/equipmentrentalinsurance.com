@@ -69,7 +69,8 @@ export default async (request: Request): Promise<Response> => {
     // The webhook answers 200 with stored:false when it did not store the lead.
     if (lr.ok) {
       const j = (await lr.json().catch(() => null)) as { stored?: boolean } | null;
-      if (j && j.stored === false) return json({ ok: false, errors: { _form: "Lead was not stored" } }, 502);
+      // Netlify Forms already saved this lead above, so a retry would only duplicate it: log, never fail the visitor.
+      if (j && j.stored === false) console.error("quote-request: leads webhook answered stored:false (lead is in Netlify Forms)");
     }
   } catch {
     /* unreachable leads webhook: unchanged, the Netlify Forms write above already succeeded */
