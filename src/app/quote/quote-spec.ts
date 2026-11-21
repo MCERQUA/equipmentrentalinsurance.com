@@ -5,7 +5,7 @@
 // Scope: the ACORD-mandatory set for form id `equipment-rental` (Equipment Rental Application,
 // EIBI) per skills/acord-forms/forms/equipment-rental/FIELDS.md, plus the base ACORD web spec
 // (_app-specs/ACORD-CORE-WEB-SPEC.md). Commercial site: NO date of birth, driver licence, SSN,
-// payment fields are collected; the only signature is a typed name + date in section 9. Live field names are never renamed.
+// signature or payment fields are collected. Live field names are never renamed.
 // Operator block only: date of birth + driver licence (number, state, expiry) are collected for LISTED
 // operators (ACORD "Date of Birth_2/s License No_2/State of Issuance_2/Expiration Date_2" for operator 1,
 // _3 for operator 2). Never SSN/card/bank. These values must never be logged or echoed anywhere.
@@ -80,7 +80,6 @@ export const SECTIONS = [
   { id: "equipment", title: "6. Equipment you are renting" },
   { id: "coverage", title: "7. Coverage you want" },
   { id: "history", title: "8. Insurance and loss history" },
-  { id: "signature", title: "9. Signature" },
 ];
 
 export const MAX_MACHINES = 5; // every row is registered in public/__forms.html (ACORD page holds 4)
@@ -272,10 +271,6 @@ export const FIELDS: Field[] = [
   T("lossHistoryDescription", "Explain each loss: date, what happened, amount paid, open or closed", "history", { kind: "textarea", max: 600, when: losses }),
   T("awareOfPotentialClaim", "Are you aware of any incident, event, or occurrence that might reasonably lead to a future claim?", "history", { kind: "yn" }),
   T("awareOfPotentialClaimDescription", "Please explain", "history", { kind: "textarea", max: 400, when: is("awareOfPotentialClaim", "Yes") }),
-
-  // ---- 9. signature (typed electronic signature, same pattern as barndoinsurance 5799234)
-  T("applicantSignature", "Applicant signature (type your full legal name)", "signature", { max: 80, autocomplete: "off" }),
-  T("signatureDate", "Signature date (today)", "signature", { kind: "date" }),
 ];
 
 export const BY_NAME: Record<string, Field> = Object.fromEntries(FIELDS.map((f) => [f.name, f]));
@@ -387,9 +382,6 @@ export function validateQuote(d: Flat, now: Date = new Date()): Record<string, s
     const x = dt(k);
     if (x && x.getTime() < today.getTime() - 86400000) err[k] = `${labelFor(k)}: the date cannot be in the past`;
   }
-  const sd = dt("signatureDate");
-  // Accept today +/- 1 day so a US evening (already tomorrow in UTC) still passes.
-  if (sd && Math.abs(sd.getTime() - today.getTime()) > 86400000) err.signatureDate = "Signature date must be today's date";
   const rs = dt("rentalStartDate"), re = dt("rentalEndDate");
   if (rs && re) {
     if (re.getTime() < rs.getTime()) err.rentalEndDate = "Rental end date must be on or after the rental start date";
