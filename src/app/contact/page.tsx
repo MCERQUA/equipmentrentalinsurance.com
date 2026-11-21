@@ -27,12 +27,19 @@ export default function ContactPage() {
     setSubmitting(true);
     setError("");
     try {
-      const res = await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "contact", source: SITE.domain, ...formData }) });
-      // fetch() resolves on a 4xx/5xx, so the status is what says the lead was taken.
-      if (!res.ok) throw new Error(String(res.status));
+      let stored = false;
+      try {
+        const res = await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form_name: "contact", source: SITE.domain, ...formData }) });
+        // The webhook answers 200 with stored:false when it did not store the lead.
+        if (res.ok) { const j = await res.json().catch(() => null); stored = !j || j.stored !== false; }
+      } catch { /* fall through to Netlify Forms */ }
+      if (!stored) {
+        const fb = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ "form-name": "contact", ...formData }).toString() });
+        if (!fb.ok) throw new Error(String(fb.status));
+      }
       // Same fields to Netlify so submission_created fires and Josh's email hook sends.
       // Best-effort and after the authoritative call, so it can never fail a taken lead.
-      await postToNetlify("contact", formData);
+      if (stored) await postToNetlify("contact", formData);
       setSubmitted(true);
     } catch {
       setError(COPY.contact.errorMessage);

@@ -60,11 +60,20 @@ export default async (request: Request): Promise<Response> => {
   }
 
   // Leads pipeline (the endpoint the page used to post to directly), only after validation passed.
-  await fetch(LEADS_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ form_name: "quote", source: "equipmentrentalinsurance.com", ...data }),
-  }).catch(() => {});
+  try {
+    const lr = await fetch(LEADS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ form_name: "quote", source: "equipmentrentalinsurance.com", ...data }),
+    });
+    // The webhook answers 200 with stored:false when it did not store the lead.
+    if (lr.ok) {
+      const j = (await lr.json().catch(() => null)) as { stored?: boolean } | null;
+      if (j && j.stored === false) return json({ ok: false, errors: { _form: "Lead was not stored" } }, 502);
+    }
+  } catch {
+    /* unreachable leads webhook: unchanged, the Netlify Forms write above already succeeded */
+  }
 
   return json({ ok: true });
 };
